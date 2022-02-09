@@ -1,29 +1,33 @@
 #ifndef __MAX30102_H
 #define __MAX30102_H
 #include "sys.h"
-//////////////////////////////////////////////////////////////////////////////////
-//本程序只供学习使用，未经作者许可，不得用于其它任何用途
-//Mini STM32开发板
-//IIC 驱动函数
-//正点原子@ALIENTEK
-//技术论坛:www.openedv.com
-//修改日期:2010/6/10
-//版本：V1.0
-//版权所有，盗版必究。
-//Copyright(C) 正点原子 2009-2019
-//All rights reserved
-//////////////////////////////////////////////////////////////////////////////////
+
+/********************************************移植修订点开始*****************************************************/
+/* 定义MAX30102连接的GPIO端口, 用户只需要修改下面的代码即可改变控制的MAX30102引脚 */
+#define MAX30102_SCL_GPIO_PORT    	GPIOB		                /* MAX30102 SCL端口 */
+#define MAX30102_SCL_GPIO_CLK 	    RCC_APB2Periph_GPIOB		/* MAX30102 SCL端口时钟 */
+#define MAX30102_SCL_GPIO_PIN		GPIO_Pin_6			        /* MAX30102 SCL管脚 */
+
+#define MAX30102_SDA_GPIO_PORT    	GPIOB		                /* MAX30102 SDA端口 */
+#define MAX30102_SDA_GPIO_CLK 	    RCC_APB2Periph_GPIOB		/* MAX30102 SDA端口时钟 */
+#define MAX30102_SDA_GPIO_PIN		GPIO_Pin_7			        /* MAX30102 SDA管脚 */
+
+#define IIC_SCL                     PBout(6)                    //SCL
+#define IIC_SDA                     PBout(7)                    //SDA	 
+#define READ_SDA                    PBin(7)                     //输入SDA 
+
+/********************************************移植修订点结束*****************************************************/
 
 
-//IO方向设置
+////IO方向设置
 
-#define SDA_IN()  {GPIOB->CRL&=0X0FFFFFFF;GPIOB->CRL|=(u32)8<<28;}
-#define SDA_OUT() {GPIOB->CRL&=0X0FFFFFFF;GPIOB->CRL|=(u32)3<<28;}
+//#define SDA_IN()  {GPIOB->CRL&=0X0FFFFFFF;GPIOB->CRL|=(u32)8<<28;}
+//#define SDA_OUT() {GPIOB->CRL&=0X0FFFFFFF;GPIOB->CRL|=(u32)3<<28;}
 
-//IO操作函数
-#define IIC_SCL    PBout(6) //SCL
-#define IIC_SDA    PBout(7) //SDA	 
-#define READ_SDA   PBin(7)  //输入SDA 
+////IO操作函数
+//#define IIC_SCL    PBout(6) //SCL
+//#define IIC_SDA    PBout(7) //SDA	 
+//#define READ_SDA   PBin(7)  //输入SDA 
 
 //IIC所有操作函数
 void IIC_Init(void);                //初始化IIC的IO口
@@ -40,6 +44,8 @@ void IIC_Read_One_Byte(u8 daddr,u8 addr,u8* data);
 
 void IIC_WriteBytes(u8 WriteAddr,u8* data,u8 dataLength);
 void IIC_ReadBytes(u8 deviceAddr, u8 writeAddr,u8* data,u8 dataLength);
+void SDA_IN(void);
+void SDA_OUT(void);
 #endif
 
 

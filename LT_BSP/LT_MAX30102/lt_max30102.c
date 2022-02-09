@@ -3,8 +3,47 @@
 #include "lt_myiic.h"
 #include "delay.h"
 #include "stdio.h"
+/**
+  ******************************************************************************
+  * @file    lt_max30102.c
+  * @author  lingtu
+  * @version V1.0
+  * @date    2022-2-9
+  * @brief   MAX30102应用函数接口
+  ******************************************************************************
+  * @attention
+  *
+  * 实验平台:零涂LT_STM32_Kit开发板 
+  * 管脚    :VIN: 5V
+  *          SCL: B6
+  *          SDA: B7
+  *          INT: B5
+  *          IRO: NC
+  *          R0 : NC
+  *          GND: NC
+  
+  * 修改管脚:见lt_myiic.h文件和lt_max30102.h
+  * 通信方式:模拟IIC
+  * 使用实例:
+             int32_t n_heart_rate = 0;
+             int32_t n_sp02 = 0;  
+             
+             max30102_init();
+             
+			 while(1)
+             {
+                 max30102_Read_Data(&n_heart_rate, &n_sp02);            //
+                 printf("heart:%d, sp02:%d\r\n", n_heart_rate, n_sp02);
+             } 
+  * 微信    :lingtu15679003191
+  * 扣扣    :1372090604
+  *
+  ******************************************************************************
+  */ 
+  
 
 #define MAX_BRIGHTNESS 255
+
 uint32_t aun_ir_buffer[500]; //IR LED sensor data
 int32_t n_ir_buffer_length;    //data length
 uint32_t aun_red_buffer[500];    //Red LED sensor data
@@ -257,13 +296,14 @@ void max30102_init(void)
     uint32_t un_min, un_max, un_prev_data;  
 	int i;
 	u8 temp[6];
-    
-	GPIO_InitTypeDef GPIO_InitStructure;
+    /*************PB14没有连接具体管脚，尝试屏蔽了，若有问题再打开****************/
+//	GPIO_InitTypeDef GPIO_InitStructure;
 
- 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB,ENABLE);	
-	GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_14;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
- 	GPIO_Init(GPIOB, &GPIO_InitStructure);
+// 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB,ENABLE);	
+//	GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_14;
+//	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
+// 	GPIO_Init(GPIOB, &GPIO_InitStructure);
+    /*************PB14没有连接具体管脚，尝试屏蔽了，屏蔽结束点********************/
 	
 	IIC_Init();
 	

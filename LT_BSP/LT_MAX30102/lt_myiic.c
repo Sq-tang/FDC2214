@@ -4,18 +4,59 @@
 //初始化IIC
 void IIC_Init(void)
 {
-    GPIO_InitTypeDef GPIO_InitStructure;
-    RCC_APB2PeriphClockCmd(	RCC_APB2Periph_GPIOB, ENABLE );	//使能GPIOB时钟
+//    GPIO_InitTypeDef GPIO_InitStructure;
+//    RCC_APB2PeriphClockCmd(	RCC_APB2Periph_GPIOB, ENABLE );	//使能GPIOB时钟
 
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6|GPIO_Pin_7;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP ;   //推挽输出
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_Init(GPIOB, &GPIO_InitStructure);
-    GPIO_SetBits(GPIOB,GPIO_Pin_6|GPIO_Pin_7); 	//PB6,PB7 输出高
+//    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6|GPIO_Pin_7;
+//    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP ;   //推挽输出
+//    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+//    GPIO_Init(GPIOB, &GPIO_InitStructure);
+//    GPIO_SetBits(GPIOB,GPIO_Pin_6|GPIO_Pin_7); 	//PB6,PB7 输出高
 
-    IIC_SCL=1;
-    IIC_SDA=1;
+//    IIC_SCL=1;
+//    IIC_SDA=1;
+    
+    GPIO_InitTypeDef  GPIO_InitStructure;
 
+    /*配置OLED SCLK*/
+    RCC_APB2PeriphClockCmd(MAX30102_SCL_GPIO_CLK, ENABLE);	 //使能OLED_SCLK_GPIO_CLK端口时钟
+    GPIO_InitStructure.GPIO_Pin = MAX30102_SCL_GPIO_PIN;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		 //推挽输出
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;//速度50MHz
+    GPIO_Init(MAX30102_SCL_GPIO_PORT, &GPIO_InitStructure);	  //初始化GPIOD3,6
+    GPIO_SetBits(MAX30102_SCL_GPIO_PORT,MAX30102_SCL_GPIO_PIN);
+    
+    /*配置OLED SDIN*/
+    RCC_APB2PeriphClockCmd(MAX30102_SDA_GPIO_CLK, ENABLE);	 //使能OLED_SCLK_GPIO_CLK端口时钟
+    GPIO_InitStructure.GPIO_Pin = MAX30102_SDA_GPIO_PIN;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		 //推挽输出
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;//速度50MHz
+    GPIO_Init(MAX30102_SDA_GPIO_PORT, &GPIO_InitStructure);	  //初始化GPIOD3,6
+    GPIO_SetBits(MAX30102_SDA_GPIO_PORT,MAX30102_SDA_GPIO_PIN);
+
+
+}
+
+void SDA_IN(void)
+{
+    GPIO_InitTypeDef  GPIO_InitStructure;
+    
+    RCC_APB2PeriphClockCmd(MAX30102_SDA_GPIO_CLK, ENABLE);	 //使能OLED_SCLK_GPIO_CLK端口时钟
+    GPIO_InitStructure.GPIO_Pin = MAX30102_SDA_GPIO_PIN;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU; 		 //  这里配置为上拉和下拉都可以
+    GPIO_Init(MAX30102_SDA_GPIO_PORT, &GPIO_InitStructure);	  //初始化GPIOD3,6
+}
+
+void SDA_OUT(void)
+{
+    GPIO_InitTypeDef  GPIO_InitStructure;
+    
+    RCC_APB2PeriphClockCmd(MAX30102_SDA_GPIO_CLK, ENABLE);	 //使能OLED_SCLK_GPIO_CLK端口时钟
+    GPIO_InitStructure.GPIO_Pin = MAX30102_SDA_GPIO_PIN;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		 //推挽输出
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;//速度50MHz
+    GPIO_Init(MAX30102_SDA_GPIO_PORT, &GPIO_InitStructure);	  //初始化GPIOD3,6
+    GPIO_SetBits(MAX30102_SDA_GPIO_PORT,MAX30102_SDA_GPIO_PIN);
 }
 //产生IIC起始信号
 void IIC_Start(void)
