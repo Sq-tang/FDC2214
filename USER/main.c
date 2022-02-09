@@ -55,7 +55,9 @@ extern u8 USART_RX_BUF[USART_REC_LEN];
 
 
 int main(void)
-{		 
+{		
+    int32_t n_heart_rate = 0;
+    int32_t n_sp02 = 0;  
 //    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB |  RCC_APB2Periph_AFIO, ENABLE);//使能PORTB口时钟、复用引脚PB3、PB4引脚
 //    GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable, ENABLE);  //关闭JTAG，SWD可以调试的
 
@@ -83,9 +85,8 @@ int main(void)
     
     while(1)
     {
-        
-        printf("send data to bt！\r\n");
-        max30102_Read_Data();
+        max30102_Read_Data(&n_heart_rate, &n_sp02);
+        printf("heart:%d, sp02:%d\r\n", n_heart_rate, n_sp02);
     }        
  }
 

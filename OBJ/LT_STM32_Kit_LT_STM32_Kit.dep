@@ -1,5 +1,5 @@
 Dependencies for Project 'LT_STM32_Kit', Target 'LT_STM32_Kit': (DO NOT MODIFY !)
-F (.\main.c)(0x6203301E)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\STM32F10x_FWLib\inc -I..\CORE -I..\LT_BSP\LT_LED -I..\LT_BSP\LT_KEY -I..\LT_BSP\LT_BEEP -I..\LT_BSP\LT_RELAY -I..\LT_BSP\LT_IR_SW -I..\LT_BSP\LT_IR_MAN -I..\LT_BSP\LT_DHT11 -I..\LT_BSP\LT_ADC -I..\LT_BSP\LT_PWM -I..\LT_BSP\LT_DS18B20 -I..\LT_BSP\LT_OLED -I..\LT_BSP\LT_MATRIX_KEY -I..\LT_BSP\LT_RC522 -I..\LT_BSP\LT_MAX30102-I D:\GraduationProject\2022\毕业设计及论文\新余学院\基于STM32的心率监测系统——邓觐铧、\LT_STM32_Kit\USER\RTE-I E:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0-I E:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
+F (.\main.c)(0x6203352C)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\STM32F10x_FWLib\inc -I..\CORE -I..\LT_BSP\LT_LED -I..\LT_BSP\LT_KEY -I..\LT_BSP\LT_BEEP -I..\LT_BSP\LT_RELAY -I..\LT_BSP\LT_IR_SW -I..\LT_BSP\LT_IR_MAN -I..\LT_BSP\LT_DHT11 -I..\LT_BSP\LT_ADC -I..\LT_BSP\LT_PWM -I..\LT_BSP\LT_DS18B20 -I..\LT_BSP\LT_OLED -I..\LT_BSP\LT_MATRIX_KEY -I..\LT_BSP\LT_RC522 -I..\LT_BSP\LT_MAX30102-I D:\GraduationProject\2022\毕业设计及论文\新余学院\基于STM32的心率监测系统——邓觐铧、\LT_STM32_Kit\USER\RTE-I E:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0-I E:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
 I (..\SYSTEM\delay\delay.h)(0x555AC82C)
 I (..\SYSTEM\sys\sys.h)(0x550F951C)
 I (..\USER\stm32f10x.h)(0x4D783CB4)
@@ -47,7 +47,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (..\LT_BSP\LT_MATRIX_KEY\lt_matrix_key.h)(0x61B73C6A)
 I (..\LT_BSP\LT_RC522\lt_rc522.h)(0x61C51866)
 I (E:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
-I (..\LT_BSP\LT_MAX30102\lt_max30102.h)(0x62032F8A)
+I (..\LT_BSP\LT_MAX30102\lt_max30102.h)(0x62033542)
 F (.\stm32f10x_it.c)(0x4EBEACB0)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\STM32F10x_FWLib\inc -I..\CORE -I..\LT_BSP\LT_LED -I..\LT_BSP\LT_KEY -I..\LT_BSP\LT_BEEP -I..\LT_BSP\LT_RELAY -I..\LT_BSP\LT_IR_SW -I..\LT_BSP\LT_IR_MAN -I..\LT_BSP\LT_DHT11 -I..\LT_BSP\LT_ADC -I..\LT_BSP\LT_PWM -I..\LT_BSP\LT_DS18B20 -I..\LT_BSP\LT_OLED -I..\LT_BSP\LT_MATRIX_KEY -I..\LT_BSP\LT_RC522 -I..\LT_BSP\LT_MAX30102-I D:\GraduationProject\2022\毕业设计及论文\新余学院\基于STM32的心率监测系统——邓觐铧、\LT_STM32_Kit\USER\RTE-I E:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0-I E:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_it.o --omf_browse ..\obj\stm32f10x_it.crf --depend ..\obj\stm32f10x_it.d)
 I (stm32f10x_it.h)(0x4D99A426)
 I (stm32f10x.h)(0x4D783CB4)
@@ -552,8 +552,8 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x4D783BB4)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x5051A0AE)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x4D783BB4)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x4D783BB4)
-F (..\LT_BSP\LT_MAX30102\lt_max30102.c)(0x6203330B)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\STM32F10x_FWLib\inc -I..\CORE -I..\LT_BSP\LT_LED -I..\LT_BSP\LT_KEY -I..\LT_BSP\LT_BEEP -I..\LT_BSP\LT_RELAY -I..\LT_BSP\LT_IR_SW -I..\LT_BSP\LT_IR_MAN -I..\LT_BSP\LT_DHT11 -I..\LT_BSP\LT_ADC -I..\LT_BSP\LT_PWM -I..\LT_BSP\LT_DS18B20 -I..\LT_BSP\LT_OLED -I..\LT_BSP\LT_MATRIX_KEY -I..\LT_BSP\LT_RC522 -I..\LT_BSP\LT_MAX30102-I D:\GraduationProject\2022\毕业设计及论文\新余学院\基于STM32的心率监测系统——邓觐铧、\LT_STM32_Kit\USER\RTE-I E:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0-I E:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\lt_max30102.o --omf_browse ..\obj\lt_max30102.crf --depend ..\obj\lt_max30102.d)
-I (..\LT_BSP\LT_MAX30102\lt_max30102.h)(0x62032F8A)
+F (..\LT_BSP\LT_MAX30102\lt_max30102.c)(0x6203358F)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\STM32F10x_FWLib\inc -I..\CORE -I..\LT_BSP\LT_LED -I..\LT_BSP\LT_KEY -I..\LT_BSP\LT_BEEP -I..\LT_BSP\LT_RELAY -I..\LT_BSP\LT_IR_SW -I..\LT_BSP\LT_IR_MAN -I..\LT_BSP\LT_DHT11 -I..\LT_BSP\LT_ADC -I..\LT_BSP\LT_PWM -I..\LT_BSP\LT_DS18B20 -I..\LT_BSP\LT_OLED -I..\LT_BSP\LT_MATRIX_KEY -I..\LT_BSP\LT_RC522 -I..\LT_BSP\LT_MAX30102-I D:\GraduationProject\2022\毕业设计及论文\新余学院\基于STM32的心率监测系统——邓觐铧、\LT_STM32_Kit\USER\RTE-I E:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0-I E:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\lt_max30102.o --omf_browse ..\obj\lt_max30102.crf --depend ..\obj\lt_max30102.d)
+I (..\LT_BSP\LT_MAX30102\lt_max30102.h)(0x62033542)
 I (..\SYSTEM\sys\sys.h)(0x550F951C)
 I (..\USER\stm32f10x.h)(0x4D783CB4)
 I (..\CORE\core_cm3.h)(0x4D523B58)

@@ -410,7 +410,7 @@ void maxim_max30102_read_fifo(uint32_t *pun_red_led, uint32_t *pun_ir_led)
   *pun_ir_led&=0x03FFFF;  //Mask MSB [23:18]
 }
 
-void max30102_Read_Data(void)
+void max30102_Read_Data(int32_t *heart_rate, int32_t *sp02)
 {
     //variables to calculate the on-board LED brightness that reflects the heartbeats
 	uint32_t un_min, un_max, un_prev_data;  
@@ -483,7 +483,10 @@ void max30102_Read_Data(void)
         maxim_heart_rate_and_oxygen_saturation(aun_ir_buffer, n_ir_buffer_length, aun_red_buffer, &n_sp02, &ch_spo2_valid, &n_heart_rate, &ch_hr_valid);
         if((ch_hr_valid == 1) && (ch_spo2_valid ==1) && (n_heart_rate>50) && (n_heart_rate<120) && (n_sp02<101) && (n_sp02>80))//**/ ch_hr_valid == 1 && ch_spo2_valid ==1 && n_heart_rate<120 && n_sp02<101
         {
-            printf("HR=%d, spo2:%d\r\n", n_heart_rate, n_sp02);
+            *heart_rate = n_heart_rate;
+            *sp02 = n_sp02;
+            // 心率和血氧浓度初始数据打印
+//            printf("HR=%d, spo2:%d\r\n", n_heart_rate, n_sp02);
             break;
         }
     }

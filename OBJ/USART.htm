@@ -3,9 +3,9 @@
 <title>Static Call Graph - [..\OBJ\USART.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\USART.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Wed Feb 09 11:20:45 2022
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Wed Feb 09 11:31:29 2022
 <BR><P>
-<H3>Maximum Stack Usage =        480 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        496 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 __rt_entry_main &rArr; main &rArr; max30102_Read_Data &rArr; maxim_heart_rate_and_oxygen_saturation &rArr; maxim_find_peaks &rArr; maxim_remove_close_peaks &rArr; maxim_sort_indices_descend
 <P>
@@ -224,7 +224,7 @@ Global Symbols
 <P><STRONG><a name="[c8]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000009))
 
 <P><STRONG><a name="[58]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
-<BR><BR>[Stack]<UL><LI>Max Depth = 480 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 496 + Unknown Stack Size
 <LI>Call Chain = __rt_entry_main &rArr; main &rArr; max30102_Read_Data &rArr; maxim_heart_rate_and_oxygen_saturation &rArr; maxim_find_peaks &rArr; maxim_remove_close_peaks &rArr; maxim_sort_indices_descend
 </UL>
 <BR>[Calls]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -247,16 +247,16 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_exit
 </UL>
 
-<P><STRONG><a name="[59]"></a>main</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, main.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 480 + Unknown Stack Size
+<P><STRONG><a name="[59]"></a>main</STRONG> (Thumb, 54 bytes, Stack size 16 bytes, main.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 496 + Unknown Stack Size
 <LI>Call Chain = main &rArr; max30102_Read_Data &rArr; maxim_heart_rate_and_oxygen_saturation &rArr; maxim_find_peaks &rArr; maxim_remove_close_peaks &rArr; maxim_sort_indices_descend
 </UL>
 <BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_init
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;max30102_init
-<LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;max30102_Read_Data
+<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;max30102_Read_Data
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_init
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_PriorityGroupConfig
-<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
@@ -341,7 +341,7 @@ Global Symbols
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;maxim_sort_ascend
 </UL>
 <BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;max30102_init
-<LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;max30102_Read_Data
+<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;max30102_Read_Data
 </UL>
 
 <P><STRONG><a name="[6d]"></a>max30102_Bus_Write</STRONG> (Thumb, 68 bytes, Stack size 16 bytes, lt_max30102.o(.text))
@@ -390,7 +390,7 @@ Global Symbols
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;max30102_Bus_Read
 </UL>
 <BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;max30102_init
-<LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;max30102_Read_Data
+<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;max30102_Read_Data
 </UL>
 
 <P><STRONG><a name="[78]"></a>max30102_reset</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, lt_max30102.o(.text))
@@ -430,9 +430,8 @@ Global Symbols
 <LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;maxim_max30102_read_reg
 </UL>
 
-<P><STRONG><a name="[64]"></a>max30102_Read_Data</STRONG> (Thumb, 484 bytes, Stack size 56 bytes, lt_max30102.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 480 + Unknown Stack Size
-<LI>Call Chain = max30102_Read_Data &rArr; maxim_heart_rate_and_oxygen_saturation &rArr; maxim_find_peaks &rArr; maxim_remove_close_peaks &rArr; maxim_sort_indices_descend
+<P><STRONG><a name="[63]"></a>max30102_Read_Data</STRONG> (Thumb, 490 bytes, Stack size 56 bytes, lt_max30102.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 480<LI>Call Chain = max30102_Read_Data &rArr; maxim_heart_rate_and_oxygen_saturation &rArr; maxim_find_peaks &rArr; maxim_remove_close_peaks &rArr; maxim_sort_indices_descend
 </UL>
 <BR>[Calls]<UL><LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;max30102_FIFO_ReadBytes
 <LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;maxim_heart_rate_and_oxygen_saturation
@@ -440,7 +439,6 @@ Global Symbols
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
-<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1058,14 +1056,13 @@ Global Symbols
 
 <P><STRONG><a name="[10d]"></a>__use_no_semihosting</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, use_no_semi_2.o(.text), UNUSED)
 
-<P><STRONG><a name="[63]"></a>__2printf</STRONG> (Thumb, 20 bytes, Stack size 24 bytes, noretval__2printf.o(.text))
+<P><STRONG><a name="[64]"></a>__2printf</STRONG> (Thumb, 20 bytes, Stack size 24 bytes, noretval__2printf.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 144 + Unknown Stack Size
 <LI>Call Chain = __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_char_file
 </UL>
-<BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;max30102_Read_Data
-<LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<BR>[Called By]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[53]"></a>_printf_int_dec</STRONG> (Thumb, 104 bytes, Stack size 24 bytes, _printf_dec.o(.text))
@@ -1118,7 +1115,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ferror
 <LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_char_common
 </UL>
-<BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 
 <P><STRONG><a name="[9f]"></a>ferror</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, ferror.o(.text))
@@ -1156,7 +1153,7 @@ Global Symbols
 <P><STRONG><a name="[83]"></a>__aeabi_fdiv</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, fdiv.o(x$fpl$fdiv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_fdiv
 </UL>
-<BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;max30102_Read_Data
+<BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;max30102_Read_Data
 </UL>
 
 <P><STRONG><a name="[a3]"></a>_fdiv</STRONG> (Thumb, 384 bytes, Stack size 16 bytes, fdiv.o(x$fpl$fdiv), UNUSED)
@@ -1167,7 +1164,7 @@ Global Symbols
 <P><STRONG><a name="[85]"></a>__aeabi_f2iz</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, ffix.o(x$fpl$ffix))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_f2iz
 </UL>
-<BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;max30102_Read_Data
+<BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;max30102_Read_Data
 </UL>
 
 <P><STRONG><a name="[a6]"></a>_ffix</STRONG> (Thumb, 54 bytes, Stack size 16 bytes, ffix.o(x$fpl$ffix), UNUSED)
@@ -1175,7 +1172,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[82]"></a>__aeabi_ui2f</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, fflt_clz.o(x$fpl$ffltu))
-<BR><BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;max30102_Read_Data
+<BR><BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;max30102_Read_Data
 </UL>
 
 <P><STRONG><a name="[115]"></a>_ffltu</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, fflt_clz.o(x$fpl$ffltu), UNUSED)
@@ -1183,7 +1180,7 @@ Global Symbols
 <P><STRONG><a name="[84]"></a>__aeabi_fmul</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, fmul.o(x$fpl$fmul))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_fmul
 </UL>
-<BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;max30102_Read_Data
+<BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;max30102_Read_Data
 </UL>
 
 <P><STRONG><a name="[a7]"></a>_fmul</STRONG> (Thumb, 258 bytes, Stack size 16 bytes, fmul.o(x$fpl$fmul), UNUSED)
