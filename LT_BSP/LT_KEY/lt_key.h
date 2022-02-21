@@ -8,8 +8,8 @@
 /* 定义KEY连接的GPIO端口, 用户只需要修改下面的代码即可改变控制的KEY引脚 */
 #define    KEY_NUM           1
 #define    KEY1_GPIO_CLK     RCC_APB2Periph_GPIOB
-#define    KEY1_GPIO_PORT    GPIOA			   
-#define    KEY1_GPIO_PIN	 GPIO_Pin_11
+#define    KEY1_GPIO_PORT    GPIOB			   
+#define    KEY1_GPIO_PIN	 GPIO_Pin_12
 
 #define    KEY2_GPIO_CLK     RCC_APB2Periph_GPIOB
 #define    KEY2_GPIO_PORT    GPIOB		   

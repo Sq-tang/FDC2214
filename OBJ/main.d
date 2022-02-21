@@ -47,4 +47,4 @@
 ..\obj\main.o: ..\LT_BSP\LT_MATRIX_KEY\lt_matrix_key.h
 ..\obj\main.o: ..\LT_BSP\LT_RC522\lt_rc522.h
 ..\obj\main.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-..\obj\main.o: ..\LT_BSP\LT_MAX30102\lt_max30102.h
+..\obj\main.o: ..\LT_BSP\LT_DS1302\lt_ds1302.h

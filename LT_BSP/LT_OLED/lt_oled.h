@@ -15,13 +15,13 @@
 
 /********************************************移植修订点开始*****************************************************/
 /* 定义OLED连接的GPIO端口, 用户只需要修改下面的代码即可改变控制的OLED引脚 */
-#define OLED_SCLK_GPIO_PORT    	GPIOB		                /* OLED SCLK端口 */
-#define OLED_SCLK_GPIO_CLK 	    RCC_APB2Periph_GPIOB		/* OLED SCLK端口时钟 */
-#define OLED_SCLK_GPIO_PIN		GPIO_Pin_10			        /* OLED SCLK管脚 */
+#define OLED_SCLK_GPIO_PORT    	GPIOA		                /* OLED SCLK端口 */
+#define OLED_SCLK_GPIO_CLK 	    RCC_APB2Periph_GPIOA		/* OLED SCLK端口时钟 */
+#define OLED_SCLK_GPIO_PIN		GPIO_Pin_5			        /* OLED SCLK管脚 */
 
-#define OLED_SDIN_GPIO_PORT    	GPIOB		                /* OLED SCLK端口 */
-#define OLED_SDIN_GPIO_CLK 	    RCC_APB2Periph_GPIOB		/* OLED SCLK端口时钟 */
-#define OLED_SDIN_GPIO_PIN		GPIO_Pin_11			        /* OLED SCLK管脚 */
+#define OLED_SDIN_GPIO_PORT    	GPIOA		                /* OLED SCLK端口 */
+#define OLED_SDIN_GPIO_CLK 	    RCC_APB2Periph_GPIOA		/* OLED SCLK端口时钟 */
+#define OLED_SDIN_GPIO_PIN		GPIO_Pin_6			        /* OLED SCLK管脚 */
 
 /********************************************移植修订点结束*****************************************************/
 

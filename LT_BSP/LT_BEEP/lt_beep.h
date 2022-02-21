@@ -6,12 +6,12 @@
 
 /********************************************移植修订点开始*****************************************************/
 /* 定义蜂鸣器连接的GPIO端口, 用户只需要修改下面的代码即可改变控制的LED引脚 */
-#define BEEP_GPIO_PORT    	GPIOA		              	/* GPIO端口 */
-#define BEEP_GPIO_CLK 	    RCC_APB2Periph_GPIOA		/* GPIO端口时钟 */
-#define BEEP_GPIO_PIN		GPIO_Pin_15			        		        
+#define BEEP_GPIO_PORT    	GPIOB		              	/* GPIO端口 */
+#define BEEP_GPIO_CLK 	    RCC_APB2Periph_GPIOB		/* GPIO端口时钟 */
+#define BEEP_GPIO_PIN		GPIO_Pin_13			        		        
 
 /* 触发电平*/
-#define BEEP_TRI_LEVEL		1							/* 0:低电平触发   1:高电平触发 */
+#define BEEP_TRI_LEVEL		0							/* 0:低电平触发   1:高电平触发 */
 /********************************************移植修订点结束*****************************************************/
 
 /** the macro definition to trigger the led on or off 

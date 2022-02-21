@@ -6,7 +6,7 @@
 /* 定义LED1连接的GPIO端口, 用户只需要修改下面的代码即可改变控制的LED引脚 */
 #define DS18B20_DQ_GPIO_PORT    	GPIOB		                /* GPIO端口 */
 #define DS18B20_DQ_GPIO_CLK 	    RCC_APB2Periph_GPIOB		/* GPIO端口时钟 */
-#define DS18B20_DQ_GPIO_PIN		    GPIO_Pin_12			        
+#define DS18B20_DQ_GPIO_PIN		    GPIO_Pin_11			        
 /********************************************移植修订点结束*****************************************************/
 
 
