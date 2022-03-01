@@ -508,8 +508,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\LT_BSP\LT_MAX30102\lt_algorithm.c</PathWithFileName>
-      <FilenameWithoutPath>lt_algorithm.c</FilenameWithoutPath>
+      <PathWithFileName>..\LT_BSP\LT_DS1302\lt_ds1302.c</PathWithFileName>
+      <FilenameWithoutPath>lt_ds1302.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -521,8 +521,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\LT_BSP\LT_MAX30102\lt_max30102.c</PathWithFileName>
-      <FilenameWithoutPath>lt_max30102.c</FilenameWithoutPath>
+      <PathWithFileName>..\LT_BSP\LT_TIMER\lt_timer.c</PathWithFileName>
+      <FilenameWithoutPath>lt_timer.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -534,8 +534,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\LT_BSP\LT_MAX30102\lt_myiic.c</PathWithFileName>
-      <FilenameWithoutPath>lt_myiic.c</FilenameWithoutPath>
+      <PathWithFileName>..\LT_BSP\LT_VOICE\lt_voice.c</PathWithFileName>
+      <FilenameWithoutPath>lt_voice.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

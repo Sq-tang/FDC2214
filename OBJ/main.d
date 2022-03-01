@@ -48,3 +48,5 @@
 ..\obj\main.o: ..\LT_BSP\LT_RC522\lt_rc522.h
 ..\obj\main.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 ..\obj\main.o: ..\LT_BSP\LT_DS1302\lt_ds1302.h
+..\obj\main.o: ..\LT_BSP\LT_TIMER\lt_timer.h
+..\obj\main.o: ..\LT_BSP\LT_VOICE\lt_voice.h

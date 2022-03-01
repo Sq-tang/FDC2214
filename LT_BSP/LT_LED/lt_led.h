@@ -8,12 +8,12 @@
 /* 定义LED1连接的GPIO端口, 用户只需要修改下面的代码即可改变控制的LED引脚 */
 #define LED1_GPIO_PORT    	GPIOC		                /* GPIO端口 */
 #define LED1_GPIO_CLK 	    RCC_APB2Periph_GPIOC		/* GPIO端口时钟 */
-#define LED1_GPIO_PIN		GPIO_Pin_13			        
+#define LED1_GPIO_PIN		GPIO_Pin_13		
 
 /* 定义LED2连接的GPIO端口, 用户只需要修改下面的代码即可改变控制的LED引脚 */
 #define LED2_GPIO_PORT    	GPIOA			              /* GPIO端口 */
 #define LED2_GPIO_CLK 	    RCC_APB2Periph_GPIOA		/* GPIO端口时钟 */
-#define LED2_GPIO_PIN		GPIO_Pin_12			        
+#define LED2_GPIO_PIN		GPIO_Pin_12		
 
 /* 触发电平*/
 #define LED_TRI_LEVEL			0							/* 0:低电平触发   1:高电平触发 */
@@ -54,6 +54,7 @@
 
 /* 定义控制IO的宏 */
 #define LED1_TOGGLE		 	digitalToggle(LED1_GPIO_PORT,LED1_GPIO_PIN)
+#define LED2_TOGGLE		 	digitalToggle(LED1_GPIO_PORT,LED1_GPIO_PIN)
 #if(LED_TRI_LEVEL == 0)
 	#define LED1_OFF		digitalHi(LED1_GPIO_PORT,LED1_GPIO_PIN)
 	#define LED1_ON			digitalLo(LED1_GPIO_PORT,LED1_GPIO_PIN)

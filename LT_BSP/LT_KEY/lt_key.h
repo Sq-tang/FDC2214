@@ -9,15 +9,15 @@
 #define    KEY_NUM           1
 #define    KEY1_GPIO_CLK     RCC_APB2Periph_GPIOB
 #define    KEY1_GPIO_PORT    GPIOB			   
-#define    KEY1_GPIO_PIN	 GPIO_Pin_12
+#define    KEY1_GPIO_PIN	 GPIO_Pin_7
 
 #define    KEY2_GPIO_CLK     RCC_APB2Periph_GPIOB
 #define    KEY2_GPIO_PORT    GPIOB		   
-#define    KEY2_GPIO_PIN	 GPIO_Pin_4
+#define    KEY2_GPIO_PIN	 GPIO_Pin_8
 
 #define    KEY3_GPIO_CLK     RCC_APB2Periph_GPIOB
 #define    KEY3_GPIO_PORT    GPIOB		   
-#define    KEY3_GPIO_PIN	 GPIO_Pin_5
+#define    KEY3_GPIO_PIN	 GPIO_Pin_9
 
 #define    KEY4_GPIO_CLK     RCC_APB2Periph_GPIOB
 #define    KEY4_GPIO_PORT    GPIOB		   

@@ -15,29 +15,35 @@
 #include "lt_matrix_key.h"
 #include "lt_rc522.h"
 #include "lt_ds1302.h"
+#include "lt_timer.h"
+#include "lt_voice.h"
 /*
     由于加入了MAX30102驱动，导致RAM占用约为11K，大于了C6T6的最大值
     所以在使用到MAX30102模块时再加入相应的驱动代码，否则不添加
 */
 //#include "lt_max30102.h"
 
+#define MAX_TIME_NUM                3
+
 /************************************************
 	零涂STM32 毕设开发板
-    STM32芯片：>= STM32F103C8T6的F1系列
+    STM32芯片：>= STM32F103C6T6的F1系列
     OLED模块：
                 VCC: 3.3V
                 GND: GND
                 SCL: A5
                 SDA: A7
-    DS18B20:
+    按键: B7    低电平触发
+    语音模块：
+                RX:  A2
+                TX:  A3
                 VCC: 5V
-                DQ:  B11
-                GND: GND
-    按键: B12   低电平触发
-    蜂鸣器：
-                VCC: 5V
-                IO:  B13
-                GND: GND
+                GND:GND
+    超声波测距模块：
+                GND:   GND
+                TXD:   A10
+                RXD:   A9
+                VCC:   5V
     
 ************************************************/
 
@@ -45,30 +51,73 @@
 //extern __IO uint16_t ADC_ConvertedValue[NOFCHANEL];
 //extern u8 USART_RX_BUF[USART_REC_LEN];
 
-int main(void)
-{		
-    CALENDAR calendar={0x2022,0x02,0x21,0x19,0x34,0x00,0x00};
-    u8 hour = 0;
-	u8 min = 0;
-	u8 sec = 0;
+char TriMeasCmd[1] = {0x55};
+
+extern u8 USART_RX_BUF[USART_REC_LEN];      // AA A5 09 01 01 4B 01 6D 00 EA AE 55
+extern uint16_t RecIndex;
+extern uint8_t RecFlag;
+
+void LT_Analyze_IR_Temp_Data(u8* USART_RX_BUF, uint16_t RecIndex, float *MAN_Temp, float *ENV_Temp)
+{
+    uint16_t i = 0;
+    uint16_t man_temper_hex = 0;
+    uint16_t env_temper_hex = 0;
     
-    int32_t n_heart_rate = 0;
-    int32_t n_sp02 = 0;
-    char buf[100] = {0};
-    float temperature = 0;
+    for(i = 0; i < RecIndex; i++)
+    {
+        if((USART_RX_BUF[i] == 0xAA) && (USART_RX_BUF[i+1] == 0xA5) && (USART_RX_BUF[i+2] == 0x09) 
+           && (USART_RX_BUF[i+3] == 0x01) && (USART_RX_BUF[i+11] == 0x55))
+        {
+            man_temper_hex = USART_RX_BUF[i+6]<<8;
+            man_temper_hex += USART_RX_BUF[i+7];
+            *MAN_Temp = man_temper_hex/10.0;
+            
+            env_temper_hex = USART_RX_BUF[i+8]<<8;
+            env_temper_hex += USART_RX_BUF[i+9];
+            *ENV_Temp = env_temper_hex/10.0;
+            return;
+        }
+    }
+}
+
+void LT_Analyze_Distance_Data(u8* USART_RX_BUF, uint16_t RecIndex, uint32_t *distance)
+{
+    uint16_t i = 0; 
+    *distance = 0;
+    
+    for(i = 0; i < RecIndex; i++)
+    {
+        if(USART_RX_BUF[i] == 0xFF)
+        {
+            *distance =  USART_RX_BUF[i+1]<<8;
+            *distance += USART_RX_BUF[i+2];
+            return;
+        }
+    }
+}
+
+int main(void)
+{	
     int i = 0;
+    
+    // CALENDAR calendar={0x2022,0x02,0x21,0x19,0x34,0x00,0x00};
+//    u8 USART_RX_BUF[15] = {0x12, 0x14, 0xAA, 0xA5, 0x09, 0x01, 0x01, 0x34, 0x01, 0x69, 0x01, 0x29, 0xD3, 0x55, 0x12};
+//    uint16_t RecIndex = 15;
+    uint32_t distance = 0;
+    u8 buf[10] = {0};
     
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB |  RCC_APB2Periph_AFIO, ENABLE);//使能PORTB口时钟、复用引脚PB3、PB4引脚
     GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable, ENABLE);  //关闭JTAG，SWD可以调试的
 
 	delay_init();	    	 //延时函数初始化	  
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); //设置NVIC中断分组2:2位抢占优先级，2位响应优先级
-	uart_init(115200);	 //串口初始化为115200
+	uart_init(9600);	 //串口初始化为115200
+    uart2_init(9600);
     
 //  RC522_GPIO_Config();
-//	LED_GPIO_Config();
-//	KEY_GPIO_Config();
-//	BEEP_GPIO_Config();
+	LED_GPIO_Config();
+	KEY_GPIO_Config();
+	BEEP_GPIO_Config();
    
     
 //	RELAY_GPIO_Config();
@@ -77,49 +126,46 @@ int main(void)
 //	ADCx_Init();
     OLED_Init();
     OLED_Clear();
-    DS1302_Init();
+//  DS1302_Init();
+//  Set_Calendar(&calendar);   //校准时间函数
 //  max30102_init();
 //  Matrix_KEY_GPIO_Config();
 //	PWM_Init();
 //	while(!DHT11_Init()); 
 //  while(DS18B20_GPIO_Config());	//DS18B20初始化
-    
-    // 显示心率监测系统
-//    for(i = 0; i < 6; i++)
-//    {
-//        OLED_ShowCHinese(16+i*16,0, i);
-//    }
-//    
-//    // 显示心率
-//    OLED_ShowCHinese(0, 2, 6);
-//    OLED_ShowCHinese(16,2, 7);
-//    
-//    // 显示血氧
-//    OLED_ShowCHinese(64,   2, 8);
-//    OLED_ShowCHinese(64+16,2, 9);
-//    
-//    // 显示温度
-//    OLED_ShowCHinese(0, 4, 10);
-//    OLED_ShowCHinese(16,4, 11);
-//    
-//    // 显示状态
-//    OLED_ShowCHinese(64,   4, 12);
-//    OLED_ShowCHinese(64+16,4, 13);
-
-//    Set_Calendar(&calendar);   //校准时间函数
-    
+    /*超(0) 声(1) 测(2) 距(3) 系(4) 统(5) 测(6) 量(7) 距(8) 离(9) 毫(10) 米(11)*/
+    // 显示超声测距系统
+    for(i = 0; i < 6; i++)
+    {
+        OLED_ShowCHinese(16+i*16,0, i);
+    }
+    // 显示测量距离
+    for(i = 0; i < 4; i++)
+    {
+        OLED_ShowCHinese(0+i*16,2, i+6);
+    }
+    OLED_ShowChar(64, 2, ':',16);
+    OLED_ShowString(104,2,"MM",16);
+   
     while(1)
     {
-        Get_Calendar(&calendar);
-		
-		hour = BCD2DEC(calendar.hour);
-		min  = BCD2DEC(calendar.minute);
-		sec = BCD2DEC(calendar.second);
-		
-		OLED_ShowString(0,2,"               ", 16);
-		sprintf(buf, "%x-%x %2d:%2d:%2d", calendar.month , calendar.date, hour, min, sec);
-		OLED_ShowString(0,2,buf, 16);
-        delay_ms(10);
+       if(KEY1 == 0)
+       {
+            delay_ms(10);
+            if(KEY1 == 0)
+            {
+                uart1_send_buff(TriMeasCmd, 1);
+                while(!KEY1);
+            }
+       }
+       
+       if(RecFlag)
+       {
+           LT_Analyze_Distance_Data(USART_RX_BUF, RecIndex, &distance);
+           OLED_ShowNum(72, 2, distance,4,16);
+           play_distance(distance);
+           RecFlag = 0;
+           RecIndex = 0;
+       }
     }        
  }
-
