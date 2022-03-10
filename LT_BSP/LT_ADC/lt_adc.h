@@ -19,7 +19,7 @@
 // 所以 PC0 做 ADC 转换通道的时候，结果可能会有误差
 
 // 转换通道个数
-#define    NOFCHANEL					 1
+#define    NOFCHANEL					 3
 
 #define    ADC_PIN4                      GPIO_Pin_4
 #define    ADC_CHANNEL4                  ADC_Channel_4

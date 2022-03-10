@@ -51,3 +51,5 @@
 ..\obj\main.o: ..\LT_BSP\LT_TIMER\lt_timer.h
 ..\obj\main.o: ..\LT_BSP\LT_VOICE\lt_voice.h
 ..\obj\main.o: ..\LT_BSP\LT_ULN2003\lt_uln2003.h
+..\obj\main.o: ..\LT_BSP\LT_FDC2214\lt_fdc2214_iic.h
+..\obj\main.o: ..\LT_BSP\LT_FDC2214\lt_fdc2214.h

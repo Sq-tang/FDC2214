@@ -17,20 +17,20 @@ typedef struct
 /* 定义DS1302连接的GPIO端口, 用户只需要修改下面的代码即可改变控制的DS1302引脚 */
 #define DS1302_CLK_GPIO_PORT    	GPIOB		                /* DS1302 CLK端口 */
 #define DS1302_CLK_GPIO_CLK 	    RCC_APB2Periph_GPIOB		/* DS1302 CLK端口时钟 */
-#define DS1302_CLK_GPIO_PIN		    GPIO_Pin_13			        /* DS1302 CLK管脚 */
+#define DS1302_CLK_GPIO_PIN		    GPIO_Pin_12			        /* DS1302 CLK管脚 */
 
 #define DS1302_DAT_GPIO_PORT    	GPIOB		                /* DS1302 DAT端口 */
 #define DS1302_DAT_GPIO_CLK 	    RCC_APB2Periph_GPIOB		/* DS1302 DAT端口时钟 */
-#define DS1302_DAT_GPIO_PIN		    GPIO_Pin_14			        /* DS1302 DAT管脚 */
+#define DS1302_DAT_GPIO_PIN		    GPIO_Pin_13			        /* DS1302 DAT管脚 */
 
 #define DS1302_RST_GPIO_PORT    	GPIOB		                /* DS1302 RST端口 */
 #define DS1302_RST_GPIO_CLK 	    RCC_APB2Periph_GPIOB		/* DS1302 RST端口时钟 */
-#define DS1302_RST_GPIO_PIN		    GPIO_Pin_15			        /* DS1302 RST管脚 */
+#define DS1302_RST_GPIO_PIN		    GPIO_Pin_14			        /* DS1302 RST管脚 */
 
-#define	DS1302_CLK		            PBout(13)                   /* DS1302 CLK管脚 */
-#define	DS1302_DAT		            PBout(14)                   /* DS1302 DAT管脚 */
-#define	DS1302_RST		            PBout(15)                   /* DS1302 RST管脚 */
-#define	READ_DS1302_DAT	            PBin(14)                    /* DS1302 DAT管脚 */
+#define	DS1302_CLK		            PBout(12)                   /* DS1302 CLK管脚 */
+#define	DS1302_DAT		            PBout(13)                   /* DS1302 DAT管脚 */
+#define	DS1302_RST		            PBout(14)                   /* DS1302 RST管脚 */
+#define	READ_DS1302_DAT	            PBin(13)                    /* DS1302 DAT管脚 */
 
 /********************************************移植修订点结束*****************************************************/
 

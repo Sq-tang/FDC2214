@@ -19,6 +19,8 @@
 "..\obj\lt_timer.o"
 "..\obj\lt_voice.o"
 "..\obj\lt_uln2003.o"
+"..\obj\lt_fdc2214.o"
+"..\obj\lt_fdc2214_iic.o"
 "..\obj\delay.o"
 "..\obj\sys.o"
 "..\obj\usart.o"

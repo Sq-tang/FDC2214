@@ -46,7 +46,7 @@ void KEY_GPIO_Config(void)
 	GPIO_InitTypeDef GPIO_InitStructure;
 	
 	/*开启按键端口的时钟*/
-	RCC_APB2PeriphClockCmd(KEY1_GPIO_CLK|KEY2_GPIO_CLK|KEY3_GPIO_CLK,ENABLE);
+	RCC_APB2PeriphClockCmd(KEY1_GPIO_CLK|KEY2_GPIO_CLK|KEY3_GPIO_CLK|KEY4_GPIO_CLK|ESP_GPIO_CLK,ENABLE);
 	
 	#if(KEY_TRI_LEVEL == 0)
 		//设置按键的引脚为上拉输入
@@ -87,6 +87,12 @@ void KEY_GPIO_Config(void)
 	GPIO_InitStructure.GPIO_Pin = KEY4_GPIO_PIN;  
 	//使用结构体初始化按键
 	GPIO_Init(KEY3_GPIO_PORT, &GPIO_InitStructure);
+#endif
+
+#if ESP_ENABLE  
+    GPIO_InitStructure.GPIO_Pin = ESP_GPIO_PIN;  
+	//使用结构体初始化按键
+	GPIO_Init(ESP_GPIO_PORT, &GPIO_InitStructure);
 #endif
 }
 

@@ -51,24 +51,12 @@ void TIM3_Int_Init(u32 arr,u32 psc)
 void TIM3_IRQHandler(void)   //TIM3中断
 {
 	if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET)  //检查TIM3更新中断发生与否
-		{
-            TIM_ClearITPendingBit(TIM3, TIM_IT_Update  );  //清除TIMx更新中断标志 
-            // 定时器时间到的逻辑
-            if((RecIndex != 0) && (RecFlag == 0))
-            {
-                RecFlag = 1;
-            }
-		}
+    {
+        TIM_ClearITPendingBit(TIM3, TIM_IT_Update  );  //清除TIMx更新中断标志 
+        // 定时器时间到的逻辑
+        if((RecIndex != 0) && (RecFlag == 0))
+        {
+            RecFlag = 1;
+        }
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
