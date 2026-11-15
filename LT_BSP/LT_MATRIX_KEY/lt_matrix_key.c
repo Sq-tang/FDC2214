@@ -2,43 +2,11 @@
 #include "lt_beep.h"
 #include "delay.h"
 
-/**
-  ******************************************************************************
-  * @file    lt_matrix_key.c
-  * @author  lingtu
-  * @version V1.0
-  * @date    2021-12-13
-  * @brief   矩阵按键应用函数接口
-  ******************************************************************************
-  * @attention
-  *
-  * 实验平台:零涂LT_STM32_Kit开发板 
-  * 管脚    :行：C1、C3、A1、A5
-             列: A7、C5、B1、F11
-  * 使用示例:
-             delay_init();	    	 //延时函数初始化	  
-             NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); //设置NVIC中断分组2:2位抢占优先级，2位响应优先级
-             uart_init(115200);	 //串口初始化为115200
-             Matrix_KEY_GPIO_Config();
-             
-             while(1)
-             {	
-                KeyNum = Matrix_KEY_Scan();
-                if(KeyNum != 0)
-                    printf("%c\r\n", KEY_Value2Char(KeyNum));
-                
-                delay_ms(10);
-             }	
-  * 微信    :lingtu15679003191
-  * 扣扣    :1372090604
-  *
-  ******************************************************************************
-  */
 
 /********************************************移植修订点开始*****************************************************/
 /* 只需要在下面填写横竖行的IO口、管脚和时钟端口，IO口和管脚都可以随意定义 无需在一个IO口 管脚也无需按顺序 */
 KGPT KPIN[2][4]= { 
-    {{GPIOB,GPIO_Pin_11, RCC_APB2Periph_GPIOB},{GPIOB,GPIO_Pin_10,RCC_APB2Periph_GPIOB}, {GPIOA,GPIO_Pin_2,RCC_APB2Periph_GPIOB},{GPIOB,GPIO_Pin_1,RCC_APB2Periph_GPIOB}}, //row 横行
+    {{GPIOB,GPIO_Pin_11, RCC_APB2Periph_GPIOB},{GPIOB,GPIO_Pin_10,RCC_APB2Periph_GPIOB}, {GPIOB,GPIO_Pin_2,RCC_APB2Periph_GPIOB},{GPIOB,GPIO_Pin_1,RCC_APB2Periph_GPIOB}}, //row 横行
     {{GPIOB,GPIO_Pin_0,RCC_APB2Periph_GPIOB}, {GPIOA,GPIO_Pin_7,RCC_APB2Periph_GPIOA},  {GPIOA,GPIO_Pin_6,RCC_APB2Periph_GPIOA}, {GPIOA,GPIO_Pin_5,RCC_APB2Periph_GPIOA}}  //col 竖行
 };
 /********************************************移植修订点结束*****************************************************/

@@ -1,38 +1,5 @@
 #include "lt_adc.h"
-/**
-  ******************************************************************************
-  * @file    lt_adc.c
-  * @author  lingtu
-  * @version V1.0
-  * @date    2021-9-3
-  * @brief   ADC应用函数接口
-  ******************************************************************************
-  * @attention
-  *
-  * 实验平台:零涂LT_STM32_Kit开发板 
-  * 管脚    :PA4 PA5 PA6  
-  * 使用示例:
-			// ADC1转换的电压值通过MDA方式传到SRAM
-			extern __IO uint16_t ADC_ConvertedValue[NOFCHANEL];
 
-			// 局部变量，用于保存转换计算后的电压值, 可不要 	 
-			float ADC_ConvertedValueLocal[NOFCHANEL]; 
-			
-			ADCx_Init();
-			
-            // 将AD值转化为电压值, 可不要 
-			ADC_ConvertedValueLocal[0] =(float) ADC_ConvertedValue[0]/4096*3.3;
-			ADC_ConvertedValueLocal[1] =(float) ADC_ConvertedValue[1]/4096*3.3;
-			ADC_ConvertedValueLocal[2] =(float) ADC_ConvertedValue[2]/4096*3.3;
-		
-			printf("\r\n CH4 value = %f V \r\n",ADC_ConvertedValueLocal[0]);
-			printf("\r\n CH5 value = %f V \r\n",ADC_ConvertedValueLocal[1]);
-			printf("\r\n CH6 value = %f V \r\n",ADC_ConvertedValueLocal[2]);
-  * 微信    :lingtu15679003191
-  * 扣扣    :1372090604
-  *
-  ******************************************************************************
-  */
   
 __IO uint16_t ADC_ConvertedValue[NOFCHANEL];
 

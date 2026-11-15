@@ -2,50 +2,7 @@
 #include "usart.h"
 #include "delay.h"
 
-/**
-  ******************************************************************************
-  * @file    lt_matrix_key.c
-  * @author  lingtu
-  * @version V1.0
-  * @date    2021-12-13
-  * @brief   矩阵按键应用函数接口
-  ******************************************************************************
-  * @attention
-  *
-  * 实验平台:零涂LT_STM32_Kit开发板 
-  * 管脚    :(建议不要修改)	
-            VCC: 	3.3V
-            RST: 	B6
-            GND: 	GND
-            IRQ: 	NC
-            MISO:	B14
-            MOSI:   B15
-            SCK:	B13
-            SDA:    B5
-  * 使用示例:
-             char cid[5] = {0};
-             
-             delay_init();	    	 //延时函数初始化	  
-             NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); //设置NVIC中断分组2:2位抢占优先级，2位响应优先级
-             uart_init(115200);	 //串口初始化为115200
-             RC522_GPIO_Config();
-             
-             while(1)
-             {	
-                RC522_Read_ID_Once(cid);
-                if(strlen(cid) > 0)
-                {
-                    printf("ID:%s\r\n", cid);
-                    memset(cid, 0x00, 5);
-                }
-                
-                delay_ms(10);
-             }	
-  * 微信    :lingtu15679003191
-  * 扣扣    :1372090604
-  *
-  ******************************************************************************
-  */
+
 
 #define   RC522_DELAY()  delay_us( 2 ) 
 

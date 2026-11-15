@@ -2,7 +2,7 @@
 ..\obj\lt_beep.o: ..\LT_BSP\LT_BEEP\lt_beep.h
 ..\obj\lt_beep.o: ..\USER\stm32f10x.h
 ..\obj\lt_beep.o: ..\CORE\core_cm3.h
-..\obj\lt_beep.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\lt_beep.o: D:\software\keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\lt_beep.o: ..\USER\system_stm32f10x.h
 ..\obj\lt_beep.o: ..\USER\stm32f10x_conf.h
 ..\obj\lt_beep.o: ..\STM32F10x_FWLib\inc\stm32f10x_adc.h

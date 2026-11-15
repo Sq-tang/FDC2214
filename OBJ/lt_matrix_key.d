@@ -2,7 +2,7 @@
 ..\obj\lt_matrix_key.o: ..\LT_BSP\LT_MATRIX_KEY\lt_matrix_key.h
 ..\obj\lt_matrix_key.o: ..\USER\stm32f10x.h
 ..\obj\lt_matrix_key.o: ..\CORE\core_cm3.h
-..\obj\lt_matrix_key.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\lt_matrix_key.o: D:\software\keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\lt_matrix_key.o: ..\USER\system_stm32f10x.h
 ..\obj\lt_matrix_key.o: ..\USER\stm32f10x_conf.h
 ..\obj\lt_matrix_key.o: ..\STM32F10x_FWLib\inc\stm32f10x_adc.h

@@ -1,51 +1,6 @@
 #include "lt_ds1302.h"
 
-/**
-  ******************************************************************************
-  * @file    lt_ds1302.c
-  * @author  lingtu
-  * @version V1.0
-  * @date    2022-2-21
-  * @brief   DS1302时钟模块应用函数接口
-  ******************************************************************************
-  * @attention
-  *
-  * 实验平台:零涂LT_STM32_Kit开发板 
-  * 管脚    :	
-            VCC: 	5V
-            GND: 	GND
-            CLK: 	B13
-            DAT: 	B14
-            RST:	B15
-  * 使用示例:
-             CALENDAR calendar={0x2022,0x02,0x21,0x19,0x34,0x00,0x00};  //校验时间值，BCD码
-             u8 hour = 0;
-             u8 min = 0;
-             u8 sec = 0;
-             
-             delay_init();	    	 //延时函数初始化	  
-             NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); //设置NVIC中断分组2:2位抢占优先级，2位响应优先级
-             uart_init(115200);	 //串口初始化为115200
-             DS1302_Init();
-             
-             //    Set_Calendar(&calendar);   //校准时间, 不要校准时一定得关闭该函数
-             
-             while(1)
-             {	
-                Get_Calendar(&calendar);
-		
-                hour = BCD2DEC(calendar.hour);
-                min  = BCD2DEC(calendar.minute);
-                sec = BCD2DEC(calendar.second);
-		
-                printf("%x-%x-%x %2d:%2d:%2d", calendar.year, calendar.month , calendar.date, hour, min, sec);
-                delay_ms(10);
-             }	
-  * 微信    :lingtu15679003191
-  * 扣扣    :1372090604
-  *
-  ******************************************************************************
-  */
+
 void rtc_delay(uint32_t t)
 {
 	uint32_t i=0;

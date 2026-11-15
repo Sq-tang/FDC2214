@@ -1,7 +1,7 @@
 ..\obj\lt_voice.o: ..\LT_BSP\LT_VOICE\lt_voice.c
-..\obj\lt_voice.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\lt_voice.o: D:\software\keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\lt_voice.o: ..\SYSTEM\usart\usart.h
-..\obj\lt_voice.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\lt_voice.o: D:\software\keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\lt_voice.o: ..\SYSTEM\sys\sys.h
 ..\obj\lt_voice.o: ..\USER\stm32f10x.h
 ..\obj\lt_voice.o: ..\CORE\core_cm3.h
@@ -34,4 +34,4 @@
 ..\obj\lt_voice.o: ..\SYSTEM\delay\delay.h
 ..\obj\lt_voice.o: ..\LT_BSP\LT_VOICE\lt_voice.h
 ..\obj\lt_voice.o: ..\LT_BSP\LT_OLED\lt_oled.h
-..\obj\lt_voice.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+..\obj\lt_voice.o: D:\software\keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h

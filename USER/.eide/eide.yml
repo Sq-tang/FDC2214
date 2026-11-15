@@ -1,0 +1,231 @@
+version: "4.1"
+name: STM32_Kit
+type: ARM
+deviceName: STM32F103C8
+packDir: .pack/Keil/STM32F1xx_DFP.2.3.0
+srcDirs: []
+virtualFolder:
+  name: <virtual_root>
+  files: []
+  folders:
+    - name: USER
+      files:
+        - path: main.c
+        - path: stm32f10x_it.c
+        - path: system_stm32f10x.c
+      folders: []
+    - name: LT_BSP
+      files:
+        - path: ../LT_BSP/LT_KEY/lt_key.c
+        - path: ../LT_BSP/LT_LED/lt_led.c
+        - path: ../LT_BSP/LT_BEEP/lt_beep.c
+        - path: ../LT_BSP/LT_RELAY/lt_relay.c
+        - path: ../LT_BSP/LT_IR_SW/lt_ir_switch.c
+        - path: ../LT_BSP/LT_IR_MAN/lt_ir_man.c
+        - path: ../LT_BSP/LT_DHT11/lt_dht11.c
+        - path: ../LT_BSP/LT_ADC/lt_adc.c
+        - path: ../LT_BSP/LT_PWM/lt_pwm.c
+        - path: ../LT_BSP/LT_DS18B20/lt_ds18b20.c
+        - path: ../LT_BSP/LT_OLED/lt_oled.c
+        - path: ../LT_BSP/LT_MATRIX_KEY/lt_matrix_key.c
+        - path: ../LT_BSP/LT_RC522/lt_RC522.c
+        - path: ../LT_BSP/LT_DS1302/lt_ds1302.c
+        - path: ../LT_BSP/LT_TIMER/lt_timer.c
+        - path: ../LT_BSP/LT_VOICE/lt_voice.c
+        - path: ../LT_BSP/LT_ULN2003/lt_uln2003.c
+        - path: ../LT_BSP/FDC2214/fdc2214_iic.c
+        - path: ../LT_BSP/FDC2214/lt_fdc2214.c
+      folders: []
+    - name: SYSTEM
+      files:
+        - path: ../SYSTEM/delay/delay.c
+        - path: ../SYSTEM/sys/sys.c
+        - path: ../SYSTEM/usart/usart.c
+      folders: []
+    - name: CORE
+      files:
+        - path: ../CORE/core_cm3.c
+        - path: ../CORE/startup_stm32f10x_hd.s
+      folders: []
+    - name: FWLib
+      files:
+        - path: ../STM32F10x_FWLib/src/misc.c
+        - path: ../STM32F10x_FWLib/src/stm32f10x_gpio.c
+        - path: ../STM32F10x_FWLib/src/stm32f10x_rcc.c
+        - path: ../STM32F10x_FWLib/src/stm32f10x_usart.c
+        - path: ../STM32F10x_FWLib/src/stm32f10x_adc.c
+        - path: ../STM32F10x_FWLib/src/stm32f10x_dma.c
+        - path: ../STM32F10x_FWLib/src/stm32f10x_tim.c
+        - path: ../STM32F10x_FWLib/src/stm32f10x_spi.c
+      folders: []
+    - name: README
+      files:
+        - path: ../README.TXT
+      folders: []
+dependenceList: []
+outDir: build
+miscInfo:
+  uid: aa1e107ee1b48bc5d562499aecd8db9f
+targets:
+  LT_STM32_Kit:
+    cppPreprocessAttrs:
+      defineList:
+        - USE_STDPERIPH_DRIVER
+        - STM32F10X_MD
+      incList:
+        - ../SYSTEM/delay
+        - ../SYSTEM/sys
+        - ../SYSTEM/usart
+        - .
+        - ../STM32F10x_FWLib/inc
+        - ../CORE
+        - ../LT_BSP/LT_LED
+        - ../LT_BSP/LT_KEY
+        - ../LT_BSP/LT_BEEP
+        - ../LT_BSP/LT_RELAY
+        - ../LT_BSP/LT_IR_SW
+        - ../LT_BSP/LT_IR_MAN
+        - ../LT_BSP/LT_DHT11
+        - ../LT_BSP/LT_ADC
+        - ../LT_BSP/LT_PWM
+        - ../LT_BSP/LT_DS18B20
+        - ../LT_BSP/LT_OLED
+        - ../LT_BSP/LT_MATRIX_KEY
+        - ../LT_BSP/LT_RC522
+        - ../LT_BSP/LT_MAX30102
+        - ../LT_BSP/LT_DS1302
+        - ../LT_BSP/LT_TIMER
+        - ../LT_BSP/LT_VOICE
+        - ../LT_BSP/LT_ULN2003
+        - ../LT_BSP/FDC2214
+        - .cmsis/include
+        - RTE/_LT_STM32_Kit
+      libList: []
+    excludeList: []
+    settings:
+      debugger: cortex-debug
+    toolchain: AC5
+    toolchainConfigMap:
+      AC5:
+        archExtensions: ""
+        cpuType: Cortex-M3
+        floatingPointHardware: none
+        options:
+          version: 4
+          afterBuildTasks: []
+          asm-compiler:
+            defines: []
+          beforeBuildTasks: []
+          c/cpp-compiler:
+            CXX_FLAGS: --diag_suppress=1 --diag_suppress=1295
+            C_FLAGS: --diag_suppress=1 --diag_suppress=1295
+            c99-mode: true
+            one-elf-section-per-function: true
+            optimization: level-0
+            warnings: unspecified
+          global:
+            output-debug-info: enable
+            use-microLIB: true
+          linker:
+            $outputTaskExcludes:
+              - .bin
+            output-format: elf
+            ro-base: "0x08000000"
+            rw-base: "0x20000000"
+            xo-base: ""
+        scatterFilePath: ""
+        storageLayout:
+          RAM:
+            - id: 1
+              isChecked: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              noInit: false
+              tag: RAM
+            - id: 2
+              isChecked: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              noInit: false
+              tag: RAM
+            - id: 3
+              isChecked: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              noInit: false
+              tag: RAM
+            - id: 1
+              isChecked: true
+              mem:
+                size: "0x5000"
+                startAddr: "0x20000000"
+              noInit: false
+              tag: IRAM
+            - id: 2
+              isChecked: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              noInit: false
+              tag: IRAM
+          ROM:
+            - id: 1
+              isChecked: false
+              isStartup: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              tag: ROM
+            - id: 2
+              isChecked: false
+              isStartup: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              tag: ROM
+            - id: 3
+              isChecked: false
+              isStartup: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              tag: ROM
+            - id: 1
+              isChecked: true
+              isStartup: true
+              mem:
+                size: "0x10000"
+                startAddr: "0x8000000"
+              tag: IROM
+            - id: 2
+              isChecked: false
+              isStartup: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              tag: IROM
+        useCustomScatterFile: false
+    uploadConfigMap:
+      JLink:
+        baseAddr: ""
+        bin: ""
+        cpuInfo:
+          cpuName: "null"
+          vendor: "null"
+        otherCmds: ""
+        proType: 1
+        speed: 8000
+      STLink:
+        address: "0x8000000"
+        bin: ""
+        elFile: None
+        optionBytes: .eide/lt_stm32_kit.st.option.bytes.ini
+        otherCmds: ""
+        proType: SWD
+        resetMode: default
+        runAfterProgram: true
+        speed: 4000
+    uploader: STLink

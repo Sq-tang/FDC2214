@@ -2,7 +2,7 @@
 ..\obj\lt_rc522.o: ..\LT_BSP\LT_RC522\lt_rc522.h
 ..\obj\lt_rc522.o: ..\USER\stm32f10x.h
 ..\obj\lt_rc522.o: ..\CORE\core_cm3.h
-..\obj\lt_rc522.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\lt_rc522.o: D:\software\keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\lt_rc522.o: ..\USER\system_stm32f10x.h
 ..\obj\lt_rc522.o: ..\USER\stm32f10x_conf.h
 ..\obj\lt_rc522.o: ..\STM32F10x_FWLib\inc\stm32f10x_adc.h
@@ -29,8 +29,8 @@
 ..\obj\lt_rc522.o: ..\STM32F10x_FWLib\inc\stm32f10x_usart.h
 ..\obj\lt_rc522.o: ..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h
 ..\obj\lt_rc522.o: ..\STM32F10x_FWLib\inc\misc.h
-..\obj\lt_rc522.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-..\obj\lt_rc522.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\lt_rc522.o: D:\software\keil\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+..\obj\lt_rc522.o: D:\software\keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\lt_rc522.o: ..\SYSTEM\usart\usart.h
 ..\obj\lt_rc522.o: ..\SYSTEM\sys\sys.h
 ..\obj\lt_rc522.o: ..\SYSTEM\delay\delay.h

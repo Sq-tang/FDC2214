@@ -3,7 +3,7 @@
 ..\obj\lt_ir_switch.o: ..\SYSTEM\sys\sys.h
 ..\obj\lt_ir_switch.o: ..\USER\stm32f10x.h
 ..\obj\lt_ir_switch.o: ..\CORE\core_cm3.h
-..\obj\lt_ir_switch.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\lt_ir_switch.o: D:\software\keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\lt_ir_switch.o: ..\USER\system_stm32f10x.h
 ..\obj\lt_ir_switch.o: ..\USER\stm32f10x_conf.h
 ..\obj\lt_ir_switch.o: ..\STM32F10x_FWLib\inc\stm32f10x_adc.h

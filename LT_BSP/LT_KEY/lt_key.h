@@ -6,7 +6,7 @@
 
 /********************************************移植修订点开始*****************************************************/
 /* 定义KEY连接的GPIO端口, 用户只需要修改下面的代码即可改变控制的KEY引脚 */
-#define    KEY_NUM           3
+#define    KEY_NUM           1
 #define    KEY1_GPIO_CLK     RCC_APB2Periph_GPIOB
 #define    KEY1_GPIO_PORT    GPIOB			   
 #define    KEY1_GPIO_PIN	 GPIO_Pin_7
@@ -23,9 +23,9 @@
 #define    KEY4_GPIO_PORT    GPIOB		   
 #define    KEY4_GPIO_PIN	 GPIO_Pin_6
 
-#define    ESP_GPIO_CLK     RCC_APB2Periph_GPIOA
-#define    ESP_GPIO_PORT    GPIOA		   
-#define    ESP_GPIO_PIN	    GPIO_Pin_12
+#define    ESP_GPIO_CLK     RCC_APB2Periph_GPIOB
+#define    ESP_GPIO_PORT    GPIOB		   
+#define    ESP_GPIO_PIN	    GPIO_Pin_13
 
 /* 触发电平*/
 #define    KEY_TRI_LEVEL	 0							/* 0:低电平触发   1:高电平触发 */

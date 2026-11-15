@@ -2,7 +2,7 @@
 ..\obj\lt_led.o: ..\LT_BSP\LT_LED\lt_led.h
 ..\obj\lt_led.o: ..\USER\stm32f10x.h
 ..\obj\lt_led.o: ..\CORE\core_cm3.h
-..\obj\lt_led.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\lt_led.o: D:\software\keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\lt_led.o: ..\USER\system_stm32f10x.h
 ..\obj\lt_led.o: ..\USER\stm32f10x_conf.h
 ..\obj\lt_led.o: ..\STM32F10x_FWLib\inc\stm32f10x_adc.h

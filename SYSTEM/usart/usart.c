@@ -1,82 +1,305 @@
 #include "sys.h"
-#include "usart.h"
-#include "lt_timer.h"
-//////////////////////////////////////////////////////////////////////////////////
-//如果使用ucos,则包括下面的头文件即可.
+#include "usart.h"	  
+#define PA 1
+#define PB 2
+#define PC 3
+#define PD 4
+#define PE 5
+#define PF 6
+#define PG 7
+#define AIN			1
+#define IN_FLOATING	2
+#define IPD			3
+#define IPU			4
+#define Out_OD		5
+#define Out_PP		6
+#define AF_OD		7
+#define AF_PP		8
+#define TR_USART1 1
+#define TR_USART2 2
+#define TR_USART3 3
+#define TR_UART4  4
+#define TR_UART5  5 	 
+
 #if SYSTEM_SUPPORT_OS
-#include "includes.h"					//ucos 使用	  
+#include "includes.h"				  
 #endif
-//////////////////////////////////////////////////////////////////////////////////
-//本程序只供学习使用，未经作者许可，不得用于其它任何用途
-//ALIENTEK STM32开发板
-//串口1初始化
-//正点原子@ALIENTEK
-//技术论坛:www.openedv.com
-//修改日期:2012/8/18
-//版本：V1.5
-//版权所有，盗版必究。
-//Copyright(C) 广州市星翼电子科技有限公司 2009-2019
-//All rights reserved
-//********************************************************************************
-//V1.3修改说明
-//支持适应不同频率下的串口波特率设置.
-//加入了对printf的支持
-//增加了串口接收命令功能.
-//修正了printf第一个字符丢失的bug
-//V1.4修改说明
-//1,修改串口初始化IO的bug
-//2,修改了USART_RX_STA,使得串口最大接收字节数为2的14次方
-//3,增加了USART_REC_LEN,用于定义串口最大允许接收的字节数(不大于2的14次方)
-//4,修改了EN_USART1_RX的使能方式
-//V1.5修改说明
-//1,增加了对UCOSII的支持
-//////////////////////////////////////////////////////////////////////////////////
-
-
-//////////////////////////////////////////////////////////////////
-//加入以下代码,支持printf函数,而不需要选择use MicroLIB
+  
 #if 1
-#pragma import(__use_no_semihosting)
-//标准库需要的支持函数
-struct __FILE
-{
-    int handle;
+#pragma import(__use_no_semihosting)             
+               
+struct __FILE 
+{ 
+	int handle; 
 
-};
+}; 
 
-FILE __stdout;
-//定义_sys_exit()以避免使用半主机模式
-_sys_exit(int x)
+FILE __stdout;       
+  
+void _sys_exit(int x) 
+{ 
+	x = x; 
+} 
+
+
+#endif 
+
+ 
+ 
+#if EN_USART1_RX  
+  	
+u8 USART_RX_BUF[USART_REC_LEN];     
+
+u16 USART_RX_STA=0;        
+
+void USART1_Putc(unsigned char c)
 {
-    x = x;
+    USART_SendData(USART1, c);
+    while(USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET );
+}  
+void uart_init(u32 bound){
+ 
+  GPIO_InitTypeDef GPIO_InitStructure;
+	USART_InitTypeDef USART_InitStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;
+	 
+	RCC_APB2PeriphClockCmd(RCC_APB1Periph_USART3|RCC_APB2Periph_GPIOB, ENABLE);
+  
+
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10; //PA.9
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;	
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+   
+ 
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_11;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  GPIO_Init(GPIOB, &GPIO_InitStructure);  
+
+  NVIC_InitStructure.NVIC_IRQChannel = USART3_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=3 ;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;		
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			
+	NVIC_Init(&NVIC_InitStructure);
+  
+
+
+	USART_InitStructure.USART_BaudRate = bound;
+	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+	USART_InitStructure.USART_StopBits = USART_StopBits_1;
+	USART_InitStructure.USART_Parity = USART_Parity_No;
+	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;	
+
+  USART_Init(USART3, &USART_InitStructure); 
+  USART_ITConfig(USART3, USART_IT_RXNE, ENABLE);
+  USART_Cmd(USART3, ENABLE);                   
+
 }
-//重定义fputc函数
-int fputc(int ch, FILE *f)
-{
-    while((USART1->SR&0X40)==0);//循环发送,直到发送完毕
-    USART1->DR = (u8) ch;
-    return ch;
-}
 
+void USART1_IRQHandler(void)                
+	{
+	u8 Res;
+#if SYSTEM_SUPPORT_OS 		
+	OSIntEnter();    
 #endif
+	if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET) 
+		{
+		Res =USART_ReceiveData(USART1);	
+		
+		if((USART_RX_STA&0x8000)==0)
+			{
+			if(USART_RX_STA&0x4000)
+				{
+				if(Res!=0x0a)USART_RX_STA=0;
+				else USART_RX_STA|=0x8000;	
+				}
+			else 
+				{	
+				if(Res==0x0d)USART_RX_STA|=0x4000;
+				else
+					{
+					USART_RX_BUF[USART_RX_STA&0X3FFF]=Res ;
+					USART_RX_STA++;
+					if(USART_RX_STA>(USART_REC_LEN-1))USART_RX_STA=0;
+					}		 
+				}
+			}   		 
+     } 
+#if SYSTEM_SUPPORT_OS 	
+	OSIntExit();  											 
+#endif
+} 
+#endif	
 
-/*使用microLib的方法*/
-/*
-int fputc(int ch, FILE *f)
+
+void FDC_GPIO_Init(unsigned char GPIOx,unsigned short GPIOx_x,unsigned char Type)  //?????? "GPIO.h"
+{			  
+	GPIO_InitTypeDef   GPIO_InitStructure;	  //????
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;		//??????,??50M
+  GPIO_InitStructure.GPIO_Pin = GPIOx_x;			//????
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE); //????	
+  switch(Type)
+	{
+	  case 1:
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;		//?????????
+		break;
+		case 2:
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;		//?????????
+		break;
+		case 3:
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD;		//?????????
+		break;
+		case 4:
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;		//?????????
+		break;
+		case 5:
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_OD;		//?????????
+		break;
+		case 6:
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;		//?????????
+		break;
+		case 7:
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_OD;		//???????????
+		break;
+		case 8:
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;		//???????????
+		break;
+	}
+	switch(GPIOx)
+	{
+		case 1:	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);	 //??GPIOA??
+		GPIO_Init(GPIOA, &GPIO_InitStructure);				//?????????
+		break;
+		case 2:	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);	 //??GPIOB??
+		GPIO_Init(GPIOB, &GPIO_InitStructure);				//?????????
+		break;
+		case 3:	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);	 //??GPIOC??
+		GPIO_Init(GPIOC, &GPIO_InitStructure);				//?????????
+		break;
+		case 4:	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD, ENABLE);	 //??GPIOD??
+		GPIO_Init(GPIOD, &GPIO_InitStructure);				//?????????
+		break;
+		case 5:	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE, ENABLE);	 //??GPIOE??
+		GPIO_Init(GPIOE, &GPIO_InitStructure);				//?????????
+		break;
+		case 6:	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOF, ENABLE);	 //??GPIOF??
+		GPIO_Init(GPIOF, &GPIO_InitStructure);				//?????????
+		break;
+		case 7:	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOG, ENABLE);	 //??GPIOG??
+		GPIO_Init(GPIOG, &GPIO_InitStructure);				//?????????
+		break;
+	}
+}
+void FDC_USART_Init(unsigned long Baud, unsigned char USARTx)
 {
-USART_SendData(USART1, (uint8_t) ch);
+	USART_InitTypeDef    USART_InitStructure;
+	USART_InitStructure.USART_BaudRate = Baud; //bps,?9600  19200
+#ifndef _USART_Use
+#define _USART_Use
+	USART_InitStructure.USART_WordLength = USART_WordLength_8b;	//8???
+	USART_InitStructure.USART_StopBits = USART_StopBits_1;	  //1????
+	USART_InitStructure.USART_Parity = USART_Parity_No;	//	?????
+	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;	   //??????
+	USART_InitStructure.USART_Mode = USART_Mode_Tx | USART_Mode_Rx;	 //??????
+#endif
+	if(USARTx == 1)
+	{
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 , ENABLE);
+		FDC_GPIO_Init(PA, GPIO_Pin_9, AF_PP);	//??????  TX
+		FDC_GPIO_Init(PA, GPIO_Pin_10, IN_FLOATING);	//  RX
+		USART_Init(USART1, &USART_InitStructure);
+		USART_ClearITPendingBit(USART1, USART_IT_RXNE); //?????
+		USART_Cmd(USART1, ENABLE);
+		/* CPU????:?????,????Send,??1????????*/
+		USART_ClearFlag(USART1, USART_FLAG_TC);     /* ?Transmission Complete flag */
+	}
+	if(USARTx == 2)
+	{
+		RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2 , ENABLE);
+		FDC_GPIO_Init(PA, GPIO_Pin_2, AF_PP);	//??????  TX
+		FDC_GPIO_Init(PA, GPIO_Pin_3, IN_FLOATING);	//  RX
+		// 		FDC_GPIO_Init(PE,GPIO_Pin_3,Out_PP);      //EN485-1????
+		USART_Init(USART2, &USART_InitStructure);
+		USART_ClearITPendingBit(USART2, USART_IT_RXNE); //?????
+		USART_Cmd(USART2, ENABLE);
+		/* CPU????:?????,????Send,??1????????*/
+		USART_ClearFlag(USART2, USART_FLAG_TC);     /* ?Transmission Complete flag */
+	}
+	if(USARTx == 3)
+	{
+		RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART3 , ENABLE);
+		//GPIO_PinRemapConfig(GPIO_PartialRemap_USART3,ENABLE);  //???????
+		FDC_GPIO_Init(PB, GPIO_Pin_10, AF_PP);	//??????  TX
+		FDC_GPIO_Init(PB, GPIO_Pin_11, IN_FLOATING);	//  RX   IPU
+		//  		FDC_GPIO_Init(PB,GPIO_Pin_1,Out_PP);      //EN485-2????
+		USART_Init(USART3, &USART_InitStructure);
+		USART_ClearITPendingBit(USART3, USART_IT_RXNE); //?????
+		USART_Cmd(USART3, ENABLE);
+		/* CPU????:?????,????Send,??1????????*/
+		USART_ClearFlag(USART3, USART_FLAG_TC);     /* ?Transmission Complete flag */
+	}
+	if(USARTx == 4)
+	{
+		RCC_APB1PeriphClockCmd(RCC_APB1Periph_UART4 , ENABLE);
+		//GPIO_PinRemapConfig(GPIO_PartialRemap_UART4,ENABLE);  //???????
+		FDC_GPIO_Init(PC, GPIO_Pin_10, AF_PP);	//??????  TX
+		FDC_GPIO_Init(PC, GPIO_Pin_11, IN_FLOATING);	//  RX
+		USART_Init(UART4, &USART_InitStructure);
+		USART_ClearITPendingBit(UART4, USART_IT_RXNE); //?????
+		USART_Cmd(UART4, ENABLE);
+		/* CPU????:?????,????Send,??1????????*/
+		USART_ClearFlag(UART4, USART_FLAG_TC);     /* ?Transmission Complete flag */
+	}
+	if(USARTx == 5)
+	{
+		RCC_APB1PeriphClockCmd(RCC_APB1Periph_UART5 , ENABLE);
+		//GPIO_PinRemapConfig(GPIO_PartialRemap_UART4,ENABLE);  //???????
+		FDC_GPIO_Init(PC, GPIO_Pin_12, AF_PP);	//??????  TX
+		FDC_GPIO_Init(PD, GPIO_Pin_2, IN_FLOATING);	//  RX
+		USART_Init(UART5, &USART_InitStructure);
+		USART_ClearITPendingBit(UART5, USART_IT_RXNE); //?????
+		USART_Cmd(UART5, ENABLE);
+		/* CPU????:?????,????Send,??1????????*/
+		USART_ClearFlag(UART5, USART_FLAG_TC);     /* ?Transmission Complete flag */
+	}
 
-while (USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET) {}
-
-   return ch;
 }
-int GetKey (void)  {
+void Init_USART(void)
+{
+	unsigned int baund=115200;
+	uart2_init(baund);
+	FDC_GPIO_Init(PE,GPIO_Pin_15,Out_PP ); 
+	switch(baund)
+	{
+	case 115200:
+		FDC_USART_Init(115200,TR_USART1);   //?????3
+		break;
+	case 9600:
+		FDC_USART_Init(9600,TR_USART1);   //?????3
+		break;
+	case 4800:
+		FDC_USART_Init(4800,TR_USART1);   //?????3
+		break;
+	case 2400:
+		FDC_USART_Init(2400,TR_USART1);   //?????3
+		break;
+	case 1200:
+		FDC_USART_Init(1200,TR_USART1);   //?????3
+		break;
+	default:
+		FDC_USART_Init(9600,TR_USART1);  //?????3
+		break;
+	}
 
-   while (!(USART1->SR & USART_FLAG_RXNE));
-
-   return ((int)(USART1->DR & 0x1FF));
 }
-*/
+
+
+
+
+
+
+
 
 #if EN_USART1_RX   //如果使能了接收
 //串口1中断服务程序
@@ -86,51 +309,10 @@ u8 USART_RX_BUF[USART_REC_LEN];     //接收缓冲,最大USART_REC_LEN个字节.
 //bit15，	接收完成标志
 //bit14，	接收到0x0d
 //bit13~0，	接收到的有效字节数目
-u16 USART_RX_STA=0;       //接收状态标记
+
 uint16_t RecIndex = 0;
 uint8_t RecFlag  = 0;
 
-void uart_init(u32 bound) {
-    //GPIO端口设置
-    GPIO_InitTypeDef GPIO_InitStructure;
-    USART_InitTypeDef USART_InitStructure;
-    NVIC_InitTypeDef NVIC_InitStructure;
-
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1|RCC_APB2Periph_GPIOA, ENABLE);	//使能USART1，GPIOA时钟
-
-    //USART1_TX   GPIOA.9
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9; //PA.9
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;	//复用推挽输出
-    GPIO_Init(GPIOA, &GPIO_InitStructure);//初始化GPIOA.9
-
-    //USART1_RX	  GPIOA.10初始化
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;//PA10
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;//浮空输入
-    GPIO_Init(GPIOA, &GPIO_InitStructure);//初始化GPIOA.10
-
-    //Usart1 NVIC 配置
-    NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=3 ;//抢占优先级3
-    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;		//子优先级3
-    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			//IRQ通道使能
-    NVIC_Init(&NVIC_InitStructure);	//根据指定的参数初始化VIC寄存器
-
-    //USART 初始化设置
-
-    USART_InitStructure.USART_BaudRate = bound;//串口波特率
-    USART_InitStructure.USART_WordLength = USART_WordLength_8b;//字长为8位数据格式
-    USART_InitStructure.USART_StopBits = USART_StopBits_1;//一个停止位
-    USART_InitStructure.USART_Parity = USART_Parity_No;//无奇偶校验位
-    USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;//无硬件数据流控制
-    USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;	//收发模式
-
-    USART_Init(USART1, &USART_InitStructure); //初始化串口1
-    USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);//开启串口接受中断
-    USART_Cmd(USART1, ENABLE);                    //使能串口1
-    // 开定时器，用于判断串口数据是否结束
-    TIM3_Int_Init(99,71999);   //1Khz的计数频率，计数到10为10ms
-}
 
 /**
 * USART2发送len个字节.
@@ -151,40 +333,39 @@ void uart2_init(u32 bound)
 {
     GPIO_InitTypeDef GPIO_InitStructure;
     USART_InitTypeDef USART_InitStructure;
-    NVIC_InitTypeDef NVIC_InitStructure;
-    //|RCC_APB2Periph_AFIO
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);//使能GPIOA时钟
-    RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2,ENABLE);//使能USART2时钟
 
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;    //PA2
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;    //复用推挽
+    /* GPIOA 在 APB2 总线，USART2 在 APB1 总线。 */
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
+    RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
+
+    /* 先填入默认值，避免结构体字段未初始化。 */
+    GPIO_StructInit(&GPIO_InitStructure);
+    USART_StructInit(&USART_InitStructure);
+
+    /* PA2：发送引脚，由 USART 外设控制输出。 */
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(GPIOA, &GPIO_InitStructure);
 
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3;//PA3
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING; //浮空输入
+    /* PA3：接收引脚。 */
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
     GPIO_Init(GPIOA, &GPIO_InitStructure);
 
-    RCC_APB1PeriphResetCmd(RCC_APB1Periph_USART2,ENABLE);//复位串口2
-    RCC_APB1PeriphResetCmd(RCC_APB1Periph_USART2,DISABLE);//停止复位
+    /* 串口参数：指定波特率，8 位数据，1 位停止，无校验。 */
+    USART_InitStructure.USART_BaudRate = bound;
+    USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+    USART_InitStructure.USART_StopBits = USART_StopBits_1;
+    USART_InitStructure.USART_Parity = USART_Parity_No;
+    USART_InitStructure.USART_HardwareFlowControl =   USART_HardwareFlowControl_None;
+    USART_InitStructure.USART_Mode = USART_Mode_Tx | USART_Mode_Rx;
 
-    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);    //设置NVIC中断分组2:2位抢占优先级，2位响应优先级   0-3;
-    NVIC_InitStructure.NVIC_IRQChannel = USART2_IRQn; //使能串口2中断
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 3; //先占优先级2级
-    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3; //从优先级2级
-    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; //使能外部中断通道
-    NVIC_Init(&NVIC_InitStructure); //根据NVIC_InitStruct中指定的参数初始化外设NVIC寄存器
+    USART_Init(USART2, &USART_InitStructure);
 
-    USART_InitStructure.USART_BaudRate = bound;//波特率设置
-    USART_InitStructure.USART_WordLength = USART_WordLength_8b;//8位数据长度
-    USART_InitStructure.USART_StopBits = USART_StopBits_1;//一个停止位
-    USART_InitStructure.USART_Parity = USART_Parity_No;///奇偶校验位
-    USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;//无硬件数据流控制
-    USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;//收发模式
-
-    USART_Init(USART2, &USART_InitStructure); ; //初始化串口
-    USART_ITConfig(USART2, USART_IT_RXNE, ENABLE);//开启中断
-    USART_Cmd(USART2, ENABLE);                    //使能串口
-
+    /* 先验证发送，不开启接收中断，无需配置 NVIC。 */
+    USART_ITConfig(USART2, USART_IT_RXNE, DISABLE);
+    USART_Cmd(USART2, ENABLE);
 }
 
 /**
@@ -203,39 +384,7 @@ void uart2_send_buff(u8 *buf,u16 len)
     while(USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);
 }
 
-void USART1_IRQHandler(void)                	//串口1中断服务程序
-	{
-	u8 Res;
-#if SYSTEM_SUPPORT_OS 		//如果SYSTEM_SUPPORT_OS为真，则需要支持OS.
-	OSIntEnter();    
-#endif
-	if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)  //接收中断(接收到的数据必须是0x0d 0x0a结尾)
-		{
-		Res =USART_ReceiveData(USART1);	//读取接收到的数据
-		
-		if((USART_RX_STA&0x8000)==0)//接收未完成
-			{
-			if(USART_RX_STA&0x4000)//接收到了0x0d
-				{
-				if(Res!=0x0a)USART_RX_STA=0;//接收错误,重新开始
-				else USART_RX_STA|=0x8000;	//接收完成了 
-				}
-			else //还没收到0X0D
-				{	
-				if(Res==0x0d)USART_RX_STA|=0x4000;
-				else
-					{
-					USART_RX_BUF[USART_RX_STA&0X3FFF]=Res ;
-					USART_RX_STA++;
-					if(USART_RX_STA>(USART_REC_LEN-1))USART_RX_STA=0;//接收数据错误,重新开始接收	  
-					}		 
-				}
-			}   		 
-     } 
-#if SYSTEM_SUPPORT_OS 	//如果SYSTEM_SUPPORT_OS为真，则需要支持OS.
-	OSIntExit();  											 
-#endif
-} 
+
 
 //void USART1_IRQHandler(void)                	//串口1中断服务程序
 //{

@@ -1,38 +1,4 @@
-/**
-  ******************************************************************************
-  * @file    lt_key.c
-  * @author  lingtu
-  * @version V1.0
-  * @date    2021-9-2
-  * @brief   按键应用函数接口
-  ******************************************************************************
-  * @attention
-  *
-  * 实验平台:零涂LT_STM32_Kit开发板
-  * 管脚    :KEY1:PA0   KEY2:PB8    KEY3:PB9
-  * 触发方式:低电平触发
-  * 使用示例:
-			 KEY_GPIO_Config();		//初始化按键管脚
-			 // 检测KEY1
-			 if(Single_Key_Scan(KEY1_GPIO_PORT, KEY1_GPIO_PIN) == KEY_ON)
-			 {
-				 printf("KEY1 press!\r\n");
-			 }
-			 // 检测KEY2
-			 if(Single_Key_Scan(KEY2_GPIO_PORT, KEY2_GPIO_PIN) == KEY_ON)
-			 {
-				 printf("KEY2 press!\r\n");
-			 }
-			 // 检测KEY3
-			 if(Single_Key_Scan(KEY3_GPIO_PORT, KEY3_GPIO_PIN) == KEY_ON)
-			 {
-				 printf("KEY3 press!\r\n");
-			 }
-  * 微信    :lingtu15679003191
-  * 扣扣    :1372090604
-  *
-  ******************************************************************************
-  */
+
 #include "lt_pwm.h"
 
 static void PWM_GPIO_Config(void)

@@ -2,7 +2,7 @@
 ..\obj\lt_uln2003.o: ..\LT_BSP\LT_ULN2003\lt_uln2003.h
 ..\obj\lt_uln2003.o: ..\USER\stm32f10x.h
 ..\obj\lt_uln2003.o: ..\CORE\core_cm3.h
-..\obj\lt_uln2003.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\lt_uln2003.o: D:\software\keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\lt_uln2003.o: ..\USER\system_stm32f10x.h
 ..\obj\lt_uln2003.o: ..\USER\stm32f10x_conf.h
 ..\obj\lt_uln2003.o: ..\STM32F10x_FWLib\inc\stm32f10x_adc.h

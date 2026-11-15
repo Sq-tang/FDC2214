@@ -1,30 +1,4 @@
-/**
-  ******************************************************************************
-  * @file    lt_oled.c
-  * @author  lingtu
-  * @version V1.0
-  * @date    2021-12-3
-  * @brief   IIC OLED应用函数接口
-  ******************************************************************************
-  * @attention
-  *
-  * 实验平台:零涂LT_STM32_Kit开发板 
-  * 管脚    :SCLK:  B10   SDA:B11
-  * 使用示例:(取模软件配置详见LT_OLED文件夹下的取模软件配置参数.png, 
-              将生成的中文自模数据存储在lt_oledfont.h文件夹下的Hzk数组中)
-             OLED_Init();
-             OLED_Clear();
-             
-             OLED_ShowString(0, 0, "hello world",16);
-             OLED_ShowCHinese(0, 2,0);                  // 零(0)
-             OLED_ShowCHinese(16,2,1);                  // 涂(1)
-             OLED_ShowCHinese(32,2,2);                  // 科(2)
-             OLED_ShowCHinese(48,2,3);                  // 技(3)
-  * 微信    :lingtu15679003191
-  * 扣扣    :1372090604
-  *
-  ******************************************************************************
-  */
+
 
 #include "lt_oled.h"
 #include "stdlib.h"

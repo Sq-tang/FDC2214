@@ -2,7 +2,7 @@
 ..\obj\lt_pwm.o: ..\LT_BSP\LT_PWM\lt_pwm.h
 ..\obj\lt_pwm.o: ..\USER\stm32f10x.h
 ..\obj\lt_pwm.o: ..\CORE\core_cm3.h
-..\obj\lt_pwm.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\lt_pwm.o: D:\software\keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\lt_pwm.o: ..\USER\system_stm32f10x.h
 ..\obj\lt_pwm.o: ..\USER\stm32f10x_conf.h
 ..\obj\lt_pwm.o: ..\STM32F10x_FWLib\inc\stm32f10x_adc.h
