@@ -4,13 +4,13 @@
  * 正常采集不插入固定延时；串口和 OLED 写入仍会占用 CPU 时间。
  */
 #include "delay.h"
-#include "sys.h"
-#include "usart.h"
-#include "string.h"
+#include "fdc2214.h"
+#include "fdc2214_iic.h"
 #include "lt_led.h"
 #include "lt_oled.h"
-#include "fdc2214_iic.h"
-#include "fdc2214.h"
+#include "string.h"
+#include "sys.h"
+#include "usart.h"
 
 /* 板级固定零点补偿，单位 pF；实际数值需按接线及空载测量校准。 */
 #define CAP_OFFSET_PF 9.0
@@ -27,7 +27,9 @@
 PUTCHAR_PROTOTYPE
 {
     USART_SendData(USART1, (uint8_t)ch);
-    while (USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET) {}
+    while (USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET)
+    {
+    }
     return ch;
 }
 
@@ -59,7 +61,7 @@ int main(void)
         delay_ms(100);
     }
 
-    //FDC2214_SetSleepMode(1);
+    // FDC2214_SetSleepMode(1);
     OLED_ShowString(0, 2, (u8 *)"Warming up...   ", 16);
     printf("FDC2214 Init OK!\r\n");
 
@@ -68,10 +70,14 @@ int main(void)
     {
         /* 返回 0 表示窗口未填满或读取失败，不发送未更新的数据。 */
         if (!FDC2214_ReadCapacitance(&capacitance))
+        {
+            printf("ERROR\r\n");
             continue;
+        }
+
         capacitance -= CAP_OFFSET_PF; /* 在驱动已扣除 33 pF 的基础上补偿。 */
-        printf("Capacity_value1= %5.3f pF\r\n", capacitance);
-					
+        printf("%5.3f\r\n", capacitance);
+
         /* Send every valid result on USART2; keep the existing text format. */
         if (capacitance > 999999.999 || capacitance < -99999.999)
             sprintf(display, "Out of range    ");

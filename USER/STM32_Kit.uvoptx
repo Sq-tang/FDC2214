@@ -159,14 +159,14 @@
           <Type>0</Type>
           <LineNumber>529</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134223200</Address>
+          <Address>134223218</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>D:\Users\Tsq\Desktop\embeded_system\FDC2214-2 (楂橀厤钃濈墮娆維TM32+OLED宸插幓鏁忔劅瀛楋級\STM32_Kit\LT_BSP\FDC2214\lt_fdc2214.c</Filename>
+          <Filename>..\LT_BSP\FDC2214\lt_fdc2214.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\USART\../LT_BSP/FDC2214/lt_fdc2214.c\529</Expression>
         </Bp>
@@ -181,6 +181,11 @@
           <count>1</count>
           <WinNumber>1</WinNumber>
           <ItemText>ch0</ItemText>
+        </Ww>
+        <Ww>
+          <count>2</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>capacitance</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>
@@ -198,6 +203,11 @@
           <count>2</count>
           <WinNumber>2</WinNumber>
           <ItemText>maximum</ItemText>
+        </Ww>
+        <Ww>
+          <count>3</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>dataRead</ItemText>
         </Ww>
       </WatchWindow2>
       <Tracepoint>
