@@ -35,6 +35,10 @@ virtualFolder:
         - path: ../LT_BSP/LT_ULN2003/lt_uln2003.c
         - path: ../LT_BSP/FDC2214/fdc2214_iic.c
         - path: ../LT_BSP/FDC2214/lt_fdc2214.c
+        - path: ../LT_BSP/LT_MPU6050/it_mpu6050.c
+        - path: ../LT_BSP/LT_MPU6050/It_mpu6050.h
+        - path: ../LT_BSP/LT_MAX30102/lt_myiic.c
+        - path: ../LT_BSP/LT_MAX30102/lt_myiic.h
       folders: []
     - name: SYSTEM
       files:
