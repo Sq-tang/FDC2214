@@ -2,6 +2,7 @@
 #include "i2c.h"
 #include "delay.h"
 
+/* 这组宏分别定义采样配置起始地址、数据区起始地址和电源管理位值。 */
 #define MPU6050_REG_SMPLRT_DIV    0x19U
 #define MPU6050_REG_ACCEL_XOUT_H  0x3BU
 #define MPU6050_REG_PWR_MGMT_1    0x6BU
@@ -28,16 +29,19 @@ void MPU_6050_IIC_Init(void)
     My_I2C2_Init();
 }
 
+/* 单寄存器写入就是向指定寄存器发送 1 个字节。 */
 uint8_t MPU_6050_WriteReg(uint8_t reg, uint8_t value)
 {
     return MPU6050_Status(My_I2C_RegWriteBytes(I2C2, MPU6050_ADDR, reg, &value, 1U));
 }
 
+/* 单字节读取复用连续读取接口，两者使用相同的 I2C 时序。 */
 uint8_t MPU_6050_ReadReg(uint8_t reg, uint8_t *value)
 {
     return MPU_6050_ReadRegs(reg, value, 1U);
 }
 
+/* reg 只发送一次，连续读取时芯片会自动递增寄存器地址。 */
 uint8_t MPU_6050_ReadRegs(uint8_t reg, uint8_t *buf, uint8_t len)
 {
     return MPU6050_Status(My_I2C_RegReadBytes(I2C2, MPU6050_ADDR, reg, buf, len));
@@ -63,6 +67,7 @@ uint8_t MPU_6050_Init(void)
     if (id != MPU6050_WHO_AM_I_VALUE)
         return MPU6050_ERR_IDENTITY;
 
+    /* 身份确认后执行软件复位，等待芯片完成复位再配置。 */
     status = MPU_6050_WriteReg(MPU6050_REG_PWR_MGMT_1, MPU6050_DEVICE_RESET);
     if (status != MPU6050_OK)
         return status;
@@ -99,6 +104,7 @@ uint8_t MPU6050_GetRaw(int16_t accel[3], int16_t gyro[3], int16_t *temperature)
     if (accel == 0 || gyro == 0 || temperature == 0)
         return MPU6050_ERR_ARGUMENT;
 
+    /* 先读进局部缓冲区，整次读取成功后再更新调用方的输出。 */
     status = MPU_6050_ReadRegs(MPU6050_REG_ACCEL_XOUT_H, raw, sizeof(raw));
     if (status != MPU6050_OK)
         return status;

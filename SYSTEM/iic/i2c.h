@@ -26,9 +26,13 @@ void My_I2C2_Init(void);
  * Size 为 1..65535，缓冲区至少有 Size 个字节。接口同步阻塞，同一总线串行调用。
  * 读失败时丢弃本次输出。寄存器接口使用单字节寄存器号，寄存器读通过重复 START 切换方向。
  */
+/* 直接向从机发送字节流。 */
 int My_I2C_SendBytes(I2C_TypeDef *I2Cx, uint8_t ADDR, const uint8_t *pData, uint16_t Size);
+/* 直接从从机当前读位置接收字节流。 */
 int My_I2C_ReceiveBytes(I2C_TypeDef *I2Cx, uint8_t ADDR, uint8_t *pBuffer, uint16_t Size);
+/* 先发送寄存器地址，再用重复 START 切换到读方向。 */
 int My_I2C_RegReadBytes(I2C_TypeDef *I2Cx, uint8_t ADDR, uint8_t Reg, uint8_t *pBuffer, uint16_t Size);
+/* 在同一事务内先写寄存器地址，再写入数据。 */
 int My_I2C_RegWriteBytes(I2C_TypeDef *I2Cx, uint8_t ADDR, uint8_t Reg, const uint8_t *pData, uint16_t Size);
 
 #endif

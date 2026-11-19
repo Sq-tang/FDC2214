@@ -10,9 +10,11 @@
 
 /* 每个硬件事件的轮询上限，等待时间随 CPU 主频和编译优化变化。 */
 #define I2C_POLL_LIMIT    100000U
+/* BERR：总线时序错误，ARLO：仲裁丢失，OVR：数据溢出。AF 单独处理以报告 NACK 阶段。 */
 #define I2C_BUS_FAULTS    (I2C_SR1_BERR | I2C_SR1_ARLO | I2C_SR1_OVR)
 #define I2C_CLEAR_ERRORS  (I2C_FLAG_BERR | I2C_FLAG_ARLO | I2C_FLAG_OVR | I2C_FLAG_AF)
 
+/* PB10/PB11 设为复用开漏，I2C2 外设以 100 kHz 生成总线时序。 */
 void My_I2C2_Init(void)
 {
     GPIO_InitTypeDef pins;
@@ -53,6 +55,7 @@ static int prepare(I2C_TypeDef *bus, uint8_t addr, const void *data, uint16_t si
     return MY_I2C_BUS_ERROR;
 }
 
+/* 优先检查错误和 NACK，再检查目标事件。轮询次数用完后返回总线错误。 */
 static int wait_sr1(I2C_TypeDef *bus, uint16_t flag, int nack_status)
 {
     uint32_t polls;
@@ -71,6 +74,7 @@ static int wait_sr1(I2C_TypeDef *bus, uint16_t flag, int nack_status)
     return MY_I2C_BUS_ERROR;
 }
 
+/* STM32F1 要按 SR1 → SR2 的顺序清除 ADDR，接收流程必须选对调用时机。 */
 static void clear_addr(I2C_TypeDef *bus)
 {
     (void)bus->SR1;
@@ -127,6 +131,7 @@ static void reset_controller(I2C_TypeDef *bus)
     bus->CR1 = cr1 | I2C_CR1_ACK;
 }
 
+/* 统一收尾：出错时终止本次事务，再等待外设退出主机状态。 */
 static int finish(I2C_TypeDef *bus, int status)
 {
     uint32_t polls;
@@ -189,6 +194,7 @@ static int receive_data(I2C_TypeDef *bus, uint8_t *data, uint16_t size)
     int status;
     uint32_t primask;
 
+    /* 单字节接收：先关 ACK，再清 ADDR 并请求 STOP，最后等 RXNE 读取。 */
     if (size == 1U)
     {
         I2C_AcknowledgeConfig(bus, DISABLE);
@@ -236,6 +242,7 @@ static int receive_data(I2C_TypeDef *bus, uint8_t *data, uint16_t size)
     if (status != MY_I2C_OK)
         return status;
 
+    /* 剩两字节时，先请求 STOP，再读取 DR 中的第一个字节。 */
     primask = __get_PRIMASK();
     __disable_irq();
     I2C_GenerateSTOP(bus, ENABLE);
@@ -269,6 +276,7 @@ static int read_bytes(I2C_TypeDef *bus, uint8_t addr, const uint8_t *reg,
     return finish(bus, status);
 }
 
+/* 纯写接口为弱符号，项目可提供同名强符号来替换默认实现。 */
 #if defined(__CC_ARM)
 __weak
 #elif defined(__GNUC__)

@@ -30,7 +30,6 @@ virtualFolder:
         - path: ../LT_BSP/LT_RC522/lt_RC522.c
         - path: ../LT_BSP/LT_DS1302/lt_ds1302.c
         - path: ../LT_BSP/LT_TIMER/lt_timer.c
-        - path: ../LT_BSP/LT_VOICE/lt_voice.c
         - path: ../LT_BSP/LT_ULN2003/lt_uln2003.c
         - path: ../LT_BSP/FDC2214/fdc2214_iic.c
         - path: ../LT_BSP/FDC2214/lt_fdc2214.c
@@ -105,6 +104,8 @@ targets:
         - ../LT_BSP/FDC2214
         - .cmsis/include
         - RTE/_LT_STM32_Kit
+        - ../SYSTEM/iic
+        - ../LT_BSP/LT_MPU6050
       libList: []
     excludeList: []
     settings:

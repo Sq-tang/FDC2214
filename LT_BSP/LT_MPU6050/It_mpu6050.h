@@ -9,6 +9,7 @@
 #define MPU6050_REG_WHO_AN_I   MPU6050_REG_WHO_AM_I  /* 旧名称 */
 #define MPU6050_WHO_AM_I_VALUE 0x68U
 
+/* 各接口返回状态码，读取结果通过指针传出。 */
 enum {
     MPU6050_OK = 0,
     MPU6050_ERR_ADDRESS = 1,
@@ -27,6 +28,7 @@ void MPU_6050_IIC_Init(void);
 uint8_t MPU_6050_Init(void);
 
 uint8_t MPU_6050_WriteReg(uint8_t reg, uint8_t value);
+/* 成功时将一个寄存器字节写入 value 所指的变量。 */
 uint8_t MPU_6050_ReadReg(uint8_t reg, uint8_t *value);
 /* buf 至少有 len 字节，len 大于 0。错误时应丢弃本次 buf 内容。 */
 uint8_t MPU_6050_ReadRegs(uint8_t reg, uint8_t *buf, uint8_t len);
