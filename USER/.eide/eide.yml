@@ -44,6 +44,8 @@ virtualFolder:
         - path: ../SYSTEM/delay/delay.c
         - path: ../SYSTEM/sys/sys.c
         - path: ../SYSTEM/usart/usart.c
+        - path: ../SYSTEM/iic/i2c.c
+        - path: ../SYSTEM/iic/i2c.h
       folders: []
     - name: CORE
       files:
@@ -60,6 +62,7 @@ virtualFolder:
         - path: ../STM32F10x_FWLib/src/stm32f10x_dma.c
         - path: ../STM32F10x_FWLib/src/stm32f10x_tim.c
         - path: ../STM32F10x_FWLib/src/stm32f10x_spi.c
+        - path: ../STM32F10x_FWLib/src/stm32f10x_i2c.c
       folders: []
     - name: README
       files:

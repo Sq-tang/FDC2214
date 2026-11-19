@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\STM32F10x_FWLib\inc;..\CORE;..\LT_BSP\LT_LED;..\LT_BSP\LT_KEY;..\LT_BSP\LT_BEEP;..\LT_BSP\LT_RELAY;..\LT_BSP\LT_IR_SW;..\LT_BSP\LT_IR_MAN;..\LT_BSP\LT_DHT11;..\LT_BSP\LT_ADC;..\LT_BSP\LT_PWM;..\LT_BSP\LT_DS18B20;..\LT_BSP\LT_MATRIX_KEY;..\LT_BSP\LT_RC522;..\LT_BSP\LT_MAX30102;..\LT_BSP\LT_DS1302;..\LT_BSP\LT_TIMER;..\LT_BSP\LT_VOICE;..\LT_BSP\LT_ULN2003;..\LT_BSP\FDC2214;..\LT_BSP\LT_MPU6050</IncludePath>
+              <IncludePath>..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\SYSTEM\iic;..\USER;..\STM32F10x_FWLib\inc;..\CORE;..\LT_BSP\LT_LED;..\LT_BSP\LT_KEY;..\LT_BSP\LT_BEEP;..\LT_BSP\LT_RELAY;..\LT_BSP\LT_IR_SW;..\LT_BSP\LT_IR_MAN;..\LT_BSP\LT_DHT11;..\LT_BSP\LT_ADC;..\LT_BSP\LT_PWM;..\LT_BSP\LT_DS18B20;..\LT_BSP\LT_MATRIX_KEY;..\LT_BSP\LT_RC522;..\LT_BSP\LT_MAX30102;..\LT_BSP\LT_DS1302;..\LT_BSP\LT_TIMER;..\LT_BSP\LT_VOICE;..\LT_BSP\LT_ULN2003;..\LT_BSP\FDC2214;..\LT_BSP\LT_MPU6050</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -475,11 +475,6 @@
               <FilePath>..\LT_BSP\LT_TIMER\lt_timer.c</FilePath>
             </File>
             <File>
-              <FileName>lt_voice.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\LT_BSP\LT_VOICE\lt_voice.c</FilePath>
-            </File>
-            <File>
               <FileName>lt_uln2003.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LT_BSP\LT_ULN2003\lt_uln2003.c</FilePath>
@@ -518,6 +513,11 @@
               <FileName>usart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\SYSTEM\usart\usart.c</FilePath>
+            </File>
+            <File>
+              <FileName>i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\SYSTEM\iic\i2c.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -578,6 +578,11 @@
               <FileName>stm32f10x_spi.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\STM32F10x_FWLib\src\stm32f10x_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f10x_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\STM32F10x_FWLib\src\stm32f10x_i2c.c</FilePath>
             </File>
           </Files>
         </Group>

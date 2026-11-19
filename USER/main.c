@@ -38,7 +38,6 @@ int main(void)
     double capacitance; /* 电容值，单位 pF；读取成功后才可使用。 */
     /* 从阈值前一位开始计数，使首个有效结果立即翻转 LED。 */
     unsigned int led_count = LED_UPDATE_SAMPLES - 1U;
-    uint8_t mpu_id;
     uint8_t mpu_status;
     char display[32]; /* 16 字符显示行及格式化缓冲空间。 */
 
@@ -50,12 +49,21 @@ int main(void)
     Init_USART(); /* USART1：115200 bit/s，8N1，PA9/PA10。 */
     LED_GPIO_Config();
     /* 不初始化按键：原按键定义的 PB6/PB7 与 FDC2214 总线重叠。 */
-    MPU_6050_IIC_Init(); /* PB10: SCL, PB11: SDA. */
-    mpu_status = MPU_6050_ReadReg(MPU6050_REG_WHO_AM_I, &mpu_id);
+    mpu_status = MPU_6050_Init(); /* PB10: SCL, PB11: SDA. */
     if (mpu_status == 0)
-        printf("MPU6050 WHO_AM_I: 0x%02X\r\n", (unsigned int)mpu_id);
+    {
+        int16_t accel[3], gyro[3], temperature;
+        /* Init has verified the ID. Take one sample before starting the FDC loop. */
+        printf("MPU6050 WHO_AM_I: 0x%02X\r\n", (unsigned int)MPU6050_WHO_AM_I_VALUE);
+        mpu_status = MPU6050_GetRaw(accel, gyro, &temperature);
+        if (mpu_status == 0)
+            printf("MPU6050 raw: accel=(%d,%d,%d) gyro=(%d,%d,%d) temp=%d\r\n",
+                   accel[0], accel[1], accel[2], gyro[0], gyro[1], gyro[2], temperature);
+        else
+            printf("MPU6050 read error: %u\r\n", (unsigned int)mpu_status);
+    }
     else
-        printf("MPU6050 I2C error: %u\r\n", (unsigned int)mpu_status);
+        printf("MPU6050 init error: %u\r\n", (unsigned int)mpu_status);
     FDC2214_IIC_Init(); /* 软件 I2C：PB6 为 SCL，PB7 为 SDA。 */
     /* 初始化返回 0 表示成功；失败时每隔 100 ms 重试。 */
     while (FDC2214_Init())
